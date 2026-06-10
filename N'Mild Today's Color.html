@@ -1,0 +1,3161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Color Daily Look</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0; min-height: 100%;
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, #FDD7C5 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, #DCC8E8 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 0%, #FCEBC8 0%, transparent 45%),
+        #FFF6F0;
+      background-attachment: fixed;
+      color: #2A1F1A;
+    }
+    #root {
+      min-height: 100vh;
+      height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    ::-webkit-scrollbar { display: none; }
+
+    @keyframes pcdTwinkle {
+      0%, 100% { opacity: 0.2; transform: translate(-50%, -50%) scale(0.6); }
+      50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes pcdFloat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50%      { transform: translate(-50%, -55%) scale(1.06); }
+    }
+    @keyframes pcdScreenIn {
+      from { opacity: 0.5; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pcdBob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50%      { transform: translateY(-8px) rotate(2deg); }
+    }
+    @keyframes pcdFadeIn {
+      from { opacity: 0.55; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    button:focus-visible {
+      outline: 2px solid #2A1F1A; outline-offset: 3px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none; height: 6px;
+      background: rgba(42,31,26,0.15); border-radius: 999px;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #2A1F1A;
+      box-shadow: 0 2px 6px rgba(42,31,26,0.3), inset 0 0 0 4px #FFF6F0;
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #2A1F1A; border: none;
+      box-shadow: 0 2px 6px rgba(42,31,26,0.3), inset 0 0 0 4px #FFF6F0;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+
+  <!-- ═══ ios-frame.jsx ═══ -->
+  <script type="text/babel">
+
+// iOS.jsx — Simplified iOS 26 (Liquid Glass) device frame
+// Based on the iOS 26 UI Kit + Figma status bar spec. No assets, no deps.
+// Exports: IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard
+
+// ─────────────────────────────────────────────────────────────
+// Status bar
+// ─────────────────────────────────────────────────────────────
+function IOSStatusBar({ dark = false, time = '9:41' }) {
+  const c = dark ? '#fff' : '#000';
+  return (
+    <div style={{
+      display: 'flex', gap: 154, alignItems: 'center', justifyContent: 'center',
+      padding: '21px 24px 19px', boxSizing: 'border-box',
+      position: 'relative', zIndex: 20, width: '100%',
+    }}>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 1.5 }}>
+        <span style={{
+          fontFamily: '-apple-system, "SF Pro", system-ui', fontWeight: 590,
+          fontSize: 17, lineHeight: '22px', color: c,
+        }}>{time}</span>
+      </div>
+      <div style={{ flex: 1, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, paddingTop: 1, paddingRight: 1 }}>
+        <svg width="19" height="12" viewBox="0 0 19 12">
+          <rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill={c}/>
+          <rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill={c}/>
+          <rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill={c}/>
+          <rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill={c}/>
+        </svg>
+        <svg width="17" height="12" viewBox="0 0 17 12">
+          <path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill={c}/>
+          <path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill={c}/>
+          <circle cx="8.5" cy="10.5" r="1.5" fill={c}/>
+        </svg>
+        <svg width="27" height="13" viewBox="0 0 27 13">
+          <rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke={c} strokeOpacity="0.35" fill="none"/>
+          <rect x="2" y="2" width="20" height="9" rx="2" fill={c}/>
+          <path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill={c} fillOpacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Liquid glass pill — blur + tint + shine
+// ─────────────────────────────────────────────────────────────
+function IOSGlassPill({ children, dark = false, style = {} }) {
+  return (
+    <div style={{
+      height: 44, minWidth: 44, borderRadius: 9999,
+      position: 'relative', overflow: 'hidden',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      boxShadow: dark
+        ? '0 2px 6px rgba(0,0,0,0.35), 0 6px 16px rgba(0,0,0,0.2)'
+        : '0 1px 3px rgba(0,0,0,0.07), 0 3px 10px rgba(0,0,0,0.06)',
+      ...style,
+    }}>
+      {/* blur + tint */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.28)' : 'rgba(255,255,255,0.5)',
+      }} />
+      {/* shine */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 9999,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15), inset -1px -1px 1px rgba(255,255,255,0.08)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+      }} />
+      <div style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', padding: '0 4px' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Navigation bar — glass pills + large title
+// ─────────────────────────────────────────────────────────────
+function IOSNavBar({ title = 'Title', dark = false, trailingIcon = true }) {
+  const muted = dark ? 'rgba(255,255,255,0.6)' : '#404040';
+  const text = dark ? '#fff' : '#000';
+  const pillIcon = (content) => (
+    <IOSGlassPill dark={dark}>
+      <div style={{ width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {content}
+      </div>
+    </IOSGlassPill>
+  );
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', gap: 10,
+      paddingTop: 62, paddingBottom: 10, position: 'relative', zIndex: 5,
+    }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 16px',
+      }}>
+        {/* back chevron */}
+        {pillIcon(
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" style={{ marginLeft: -1 }}>
+            <path d="M10 2L2 10l8 8" stroke={muted} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        )}
+        {/* trailing ellipsis */}
+        {trailingIcon && pillIcon(
+          <svg width="22" height="6" viewBox="0 0 22 6">
+            <circle cx="3" cy="3" r="2.5" fill={muted}/>
+            <circle cx="11" cy="3" r="2.5" fill={muted}/>
+            <circle cx="19" cy="3" r="2.5" fill={muted}/>
+          </svg>
+        )}
+      </div>
+      {/* large title */}
+      <div style={{
+        padding: '0 16px',
+        fontFamily: '-apple-system, system-ui',
+        fontSize: 34, fontWeight: 700, lineHeight: '41px',
+        color: text, letterSpacing: 0.4,
+      }}>{title}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Grouped list (inset card, r:26) + row (52px)
+// ─────────────────────────────────────────────────────────────
+function IOSListRow({ title, detail, icon, chevron = true, isLast = false, dark = false }) {
+  const text = dark ? '#fff' : '#000';
+  const sec = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const ter = dark ? 'rgba(235,235,245,0.3)' : 'rgba(60,60,67,0.3)';
+  const sep = dark ? 'rgba(84,84,88,0.65)' : 'rgba(60,60,67,0.12)';
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', minHeight: 52,
+      padding: '0 16px', position: 'relative',
+      fontFamily: '-apple-system, system-ui', fontSize: 17,
+      letterSpacing: -0.43,
+    }}>
+      {icon && (
+        <div style={{
+          width: 30, height: 30, borderRadius: 7, background: icon,
+          marginRight: 12, flexShrink: 0,
+        }} />
+      )}
+      <div style={{ flex: 1, color: text }}>{title}</div>
+      {detail && <span style={{ color: sec, marginRight: 6 }}>{detail}</span>}
+      {chevron && (
+        <svg width="8" height="14" viewBox="0 0 8 14" style={{ flexShrink: 0 }}>
+          <path d="M1 1l6 6-6 6" stroke={ter} strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      )}
+      {!isLast && (
+        <div style={{
+          position: 'absolute', bottom: 0, right: 0,
+          left: icon ? 58 : 16, height: 0.5, background: sep,
+        }} />
+      )}
+    </div>
+  );
+}
+
+function IOSList({ header, children, dark = false }) {
+  const hc = dark ? 'rgba(235,235,245,0.6)' : 'rgba(60,60,67,0.6)';
+  const bg = dark ? '#1C1C1E' : '#fff';
+  return (
+    <div>
+      {header && (
+        <div style={{
+          fontFamily: '-apple-system, system-ui', fontSize: 13,
+          color: hc, textTransform: 'uppercase',
+          padding: '8px 36px 6px', letterSpacing: -0.08,
+        }}>{header}</div>
+      )}
+      <div style={{
+        background: bg, borderRadius: 26,
+        margin: '0 16px', overflow: 'hidden',
+      }}>{children}</div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Device frame
+// ─────────────────────────────────────────────────────────────
+function IOSDevice({
+  children, width = 402, height = 874, dark = false,
+  title, keyboard = false,
+}) {
+  return (
+    <div style={{
+      width, height, borderRadius: 48, overflow: 'hidden',
+      position: 'relative', background: dark ? '#000' : '#F2F2F7',
+      boxShadow: '0 40px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(0,0,0,0.12)',
+      fontFamily: '-apple-system, system-ui, sans-serif',
+      WebkitFontSmoothing: 'antialiased',
+    }}>
+      {/* dynamic island */}
+      <div style={{
+        position: 'absolute', top: 11, left: '50%', transform: 'translateX(-50%)',
+        width: 126, height: 37, borderRadius: 24, background: '#000', zIndex: 50,
+      }} />
+      {/* status bar (absolute) */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10 }}>
+        <IOSStatusBar dark={dark} />
+      </div>
+      {/* nav + content */}
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {title !== undefined && <IOSNavBar title={title} dark={dark} />}
+        <div style={{ flex: 1, overflow: 'auto' }}>{children}</div>
+        {keyboard && <IOSKeyboard dark={dark} />}
+      </div>
+      {/* home indicator — always on top */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 60,
+        height: 34, display: 'flex', justifyContent: 'center', alignItems: 'flex-end',
+        paddingBottom: 8, pointerEvents: 'none',
+      }}>
+        <div style={{
+          width: 139, height: 5, borderRadius: 100,
+          background: dark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.25)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Keyboard — iOS 26 liquid glass
+// ─────────────────────────────────────────────────────────────
+function IOSKeyboard({ dark = false }) {
+  const glyph = dark ? 'rgba(255,255,255,0.7)' : '#595959';
+  const sugg = dark ? 'rgba(255,255,255,0.6)' : '#333';
+  const keyBg = dark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)';
+
+  // special-key icons
+  const icons = {
+    shift: <svg width="19" height="17" viewBox="0 0 19 17"><path d="M9.5 1L1 9.5h4.5V16h8V9.5H18L9.5 1z" fill={glyph}/></svg>,
+    del: <svg width="23" height="17" viewBox="0 0 23 17"><path d="M7 1h13a2 2 0 012 2v11a2 2 0 01-2 2H7l-6-7.5L7 1z" fill="none" stroke={glyph} strokeWidth="1.6" strokeLinejoin="round"/><path d="M10 5l7 7M17 5l-7 7" stroke={glyph} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+    ret: <svg width="20" height="14" viewBox="0 0 20 14"><path d="M18 1v6H4m0 0l4-4M4 7l4 4" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  };
+
+  const key = (content, { w, flex, ret, fs = 25, k } = {}) => (
+    <div key={k} style={{
+      height: 42, borderRadius: 8.5,
+      flex: flex ? 1 : undefined, width: w, minWidth: 0,
+      background: ret ? '#08f' : keyBg,
+      boxShadow: '0 1px 0 rgba(0,0,0,0.075)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: '-apple-system, "SF Compact", system-ui',
+      fontSize: fs, fontWeight: 458, color: ret ? '#fff' : glyph,
+    }}>{content}</div>
+  );
+
+  const row = (keys, pad = 0) => (
+    <div style={{ display: 'flex', gap: 6.5, justifyContent: 'center', padding: `0 ${pad}px` }}>
+      {keys.map(l => key(l, { flex: true, k: l }))}
+    </div>
+  );
+
+  return (
+    <div style={{
+      position: 'relative', zIndex: 15, borderRadius: 27, overflow: 'hidden',
+      padding: '11px 0 2px',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      boxShadow: dark
+        ? '0 -2px 20px rgba(0,0,0,0.09)'
+        : '0 -1px 6px rgba(0,0,0,0.018), 0 -3px 20px rgba(0,0,0,0.012)',
+    }}>
+      {/* liquid glass bg — same recipe as nav pills */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        backdropFilter: 'blur(12px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+        background: dark ? 'rgba(120,120,128,0.14)' : 'rgba(255,255,255,0.25)',
+      }} />
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 27,
+        boxShadow: dark
+          ? 'inset 1.5px 1.5px 1px rgba(255,255,255,0.15)'
+          : 'inset 1.5px 1.5px 1px rgba(255,255,255,0.7), inset -1px -1px 1px rgba(255,255,255,0.4)',
+        border: dark ? '0.5px solid rgba(255,255,255,0.15)' : '0.5px solid rgba(0,0,0,0.06)',
+        pointerEvents: 'none',
+      }} />
+
+      {/* autocorrect bar */}
+      <div style={{
+        display: 'flex', gap: 20, alignItems: 'center',
+        padding: '8px 22px 13px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {['"The"', 'the', 'to'].map((w, i) => (
+          <React.Fragment key={i}>
+            {i > 0 && <div style={{ width: 1, height: 25, background: '#ccc', opacity: 0.3 }} />}
+            <div style={{
+              flex: 1, textAlign: 'center',
+              fontFamily: '-apple-system, system-ui', fontSize: 17,
+              color: sugg, letterSpacing: -0.43, lineHeight: '22px',
+            }}>{w}</div>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* key layout */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', gap: 13,
+        padding: '0 6.5px', width: '100%', boxSizing: 'border-box',
+        position: 'relative',
+      }}>
+        {row(['q','w','e','r','t','y','u','i','o','p'])}
+        {row(['a','s','d','f','g','h','j','k','l'], 20)}
+        <div style={{ display: 'flex', gap: 14.25, alignItems: 'center' }}>
+          {key(icons.shift, { w: 45, k: 'shift' })}
+          <div style={{ display: 'flex', gap: 6.5, flex: 1 }}>
+            {['z','x','c','v','b','n','m'].map(l => key(l, { flex: true, k: l }))}
+          </div>
+          {key(icons.del, { w: 45, k: 'del' })}
+        </div>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+          {key('ABC', { w: 92.25, fs: 18, k: 'abc' })}
+          {key('', { flex: true, k: 'space' })}
+          {key(icons.ret, { w: 92.25, ret: true, k: 'ret' })}
+        </div>
+      </div>
+
+      {/* bottom spacer (emoji+mic area, icons omitted) */}
+      <div style={{ height: 56, width: '100%', position: 'relative' }} />
+    </div>
+  );
+}
+
+Object.assign(window, {
+  IOSDevice, IOSStatusBar, IOSNavBar, IOSGlassPill, IOSList, IOSListRow, IOSKeyboard,
+});
+  </script>
+
+
+  <!-- ═══ tweaks-panel.jsx ═══ -->
+  <script type="text/babel">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  // Auto-inject a rail toggle when a <deck-stage> is on the page. The
+  // toggle drives the deck's per-viewer _railVisible via window message;
+  // state is mirrored from the same localStorage key the deck reads so
+  // the control reflects reality across reloads. The mechanism is the
+  // message — authors who want custom placement can post it directly
+  // and pass noDeckControls to suppress this one.
+  const hasDeckStage = React.useMemo(
+    () => typeof document !== 'undefined' && !!document.querySelector('deck-stage'),
+    [],
+  );
+  // deck-stage enables its rail in connectedCallback, but this panel can
+  // mount before that element has upgraded. The initial read catches the
+  // common case; the listener covers mounting first. (Older deck-stage.js
+  // copies still wait for the host's __omelette_rail_enabled postMessage —
+  // same listener handles those.)
+  const [railEnabled, setRailEnabled] = React.useState(
+    () => hasDeckStage && !!document.querySelector('deck-stage')?._railEnabled,
+  );
+  React.useEffect(() => {
+    if (!hasDeckStage || railEnabled) return undefined;
+    const onMsg = (e) => {
+      if (e.data && e.data.type === '__omelette_rail_enabled') setRailEnabled(true);
+    };
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [hasDeckStage, railEnabled]);
+  const [railVisible, setRailVisible] = React.useState(() => {
+    try { return localStorage.getItem('deck-stage.railVisible') !== '0'; } catch (e) { return true; }
+  });
+  const toggleRail = (on) => {
+    setRailVisible(on);
+    window.postMessage({ type: '__deck_rail_visible', on }, '*');
+  };
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-noncommentable=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+          {hasDeckStage && railEnabled && !noDeckControls && (
+            <TweakSection label="Deck">
+              <TweakToggle label="Thumbnail rail" value={railVisible} onChange={toggleRail} />
+            </TweakSection>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+  </script>
+
+
+  <!-- ═══ data.jsx ═══ -->
+  <script type="text/babel">
+// Personal Color Daily Look — data layer
+// Curated palette pool (114 unique cosmetic hexes) + runtime shuffle generator.
+// Outfit influences the card tint overlay only — not the hex selection.
+
+const SEASONS = {
+  spring: {
+    label: 'Spring',
+    blurb: 'Warm, clear, light',
+    swatch: ['#FFB7A1', '#FFD27A', '#FFE7B5', '#C5E1A5', '#FFF0E0'],
+    accent: '#FFB7A1',
+    bg: 'linear-gradient(160deg, #FFF1E1 0%, #FFD9C5 55%, #FFB7A1 100%)',
+  },
+  summer: {
+    label: 'Summer',
+    blurb: 'Cool, soft, muted',
+    swatch: ['#E7C6D8', '#C8C2E5', '#A8C9E1', '#E2E6F0', '#F4ECF4'],
+    accent: '#C8C2E5',
+    bg: 'linear-gradient(160deg, #F4ECF4 0%, #DCD0EC 55%, #A8C9E1 100%)',
+  },
+  autumn: {
+    label: 'Autumn',
+    blurb: 'Warm, deep, earthy',
+    swatch: ['#C97C5D', '#D9A36A', '#8E6E4B', '#6F8A5B', '#E9CFA9'],
+    accent: '#C97C5D',
+    bg: 'linear-gradient(160deg, #FBEEDC 0%, #F4D9B5 55%, #E5BB8C 100%)',
+  },
+  winter: {
+    label: 'Winter',
+    blurb: 'Cool, bright, vivid',
+    swatch: ['#C9285F', '#5E2D7C', '#1F3A6E', '#E2A2B5', '#EDE7F2'],
+    accent: '#C9285F',
+    bg: 'linear-gradient(160deg, #F4ECF6 0%, #DCC8EC 55%, #B89BD0 100%)',
+  },
+};
+
+const MOODS = [
+  { id: 'happy',     emoji: '😊', label: 'Happy',     vibe: 'sunlit & easy' },
+  { id: 'calm',      emoji: '🌿', label: 'Calm',      vibe: 'quiet & balanced' },
+  { id: 'cute',      emoji: '🍓', label: 'Cute',      vibe: 'sweet & playful' },
+  { id: 'confident', emoji: '💋', label: 'Confident', vibe: 'bold & put together' },
+  { id: 'romantic',  emoji: '🌸', label: 'Romantic',  vibe: 'soft & dreamy' },
+  { id: 'fresh',     emoji: '🍋', label: 'Fresh',     vibe: 'bright & clean' },
+  { id: 'cool',      emoji: '🧊', label: 'Cool',      vibe: 'crisp & modern' },
+];
+
+const OUTFITS = [
+  { id: 'white',        label: 'All White',     swatch: ['#FFFFFF'],                    note: 'crisp, airy' },
+  { id: 'black',        label: 'All Black',     swatch: ['#1A1714'],                    note: 'sharp, defined' },
+  { id: 'colorful',     label: 'Colorful',      swatch: ['#FFB7A1','#C8C2E5','#C9E4C8'], note: 'playful mix' },
+  { id: 'white-color',  label: 'White + Color', swatch: ['#FFFFFF','#FFB7A1'],          note: 'fresh accent' },
+  { id: 'black-color',  label: 'Black + Color', swatch: ['#1A1714','#C9285F'],          note: 'grounded pop' },
+];
+
+// Outfit influences card tint only — not hex selection.
+// Five outfits × 7 moods × 4 seasons weight tables would be 140 tables for marginal gain.
+const OUTFIT_TINT = {
+  'white':       { card: 'rgba(255,255,255,0.35)',   accent: '#FFFFFF' },
+  'black':       { card: 'rgba(30,24,22,0.20)',      accent: '#1A1714' },
+  'colorful':    { card: 'rgba(255,196,163,0.18)',   accent: '#FFB7A1' },
+  'white-color': { card: 'rgba(255,210,180,0.18)',   accent: '#FFD2B4' },
+  'black-color': { card: 'rgba(80,30,60,0.16)',      accent: '#7A2848' },
+};
+
+// ─── 114-hex cosmetic pool ────────────────────────────────────────────────────
+// Flattened from data/mild-cosmetic-base-clean.json.
+// Each entry: { hex, h, s, l, group, seasons[] }.
+// seasons[] is a deduped list of sub-season strings from sources[*].season.
+const COSMETIC_POOL = [
+  // orange (12)
+  { hex: '#F8CFA9', h: 28.9,  s: 84.9,  l: 81.8, group: 'orange', seasons: ['Light Spring'] },
+  { hex: '#FCC89B', h: 27.8,  s: 94.2,  l: 79.8, group: 'orange', seasons: ['Light Spring'] },
+  { hex: '#FCD299', h: 34.5,  s: 94.3,  l: 79.4, group: 'orange', seasons: ['Soft Autumn'] },
+  { hex: '#FAAA8D', h: 16.0,  s: 91.6,  l: 76.7, group: 'orange', seasons: ['Light Spring'] },
+  { hex: '#F9B281', h: 24.5,  s: 90.9,  l: 74.1, group: 'orange', seasons: ['Light Spring'] },
+  { hex: '#ED9779', h: 15.5,  s: 76.3,  l: 70.2, group: 'orange', seasons: ['Warm Spring'] },
+  { hex: '#FDAA63', h: 27.7,  s: 97.5,  l: 69.0, group: 'orange', seasons: ['Clear Spring','Warm Spring','Light Spring','Soft Autumn'] },
+  { hex: '#F6B26A', h: 30.9,  s: 88.6,  l: 69.0, group: 'orange', seasons: ['Warm Autumn'] },
+  { hex: '#F4A166', h: 24.9,  s: 86.6,  l: 67.8, group: 'orange', seasons: ['Light Spring'] },
+  { hex: '#F18654', h: 19.1,  s: 84.9,  l: 63.7, group: 'orange', seasons: ['Warm Spring'] },
+  { hex: '#F2AD46', h: 35.9,  s: 86.9,  l: 61.2, group: 'orange', seasons: ['Clear Spring'] },
+  { hex: '#F68D2E', h: 28.5,  s: 91.7,  l: 57.3, group: 'orange', seasons: ['Warm Autumn'] },
+  // red (48)
+  { hex: '#F7C4C6', h: 357.6, s: 76.1,  l: 86.9, group: 'red', seasons: ['Clear Spring'] },
+  { hex: '#ECD0C7', h: 14.6,  s: 49.3,  l: 85.3, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#F4BFC3', h: 355.5, s: 70.7,  l: 85.3, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#F2C1BF', h: 2.4,   s: 66.2,  l: 84.9, group: 'red', seasons: ['Soft Summer'] },
+  { hex: '#F7B7AB', h: 9.5,   s: 82.6,  l: 82.0, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#E8AEB6', h: 351.7, s: 55.8,  l: 79.6, group: 'red', seasons: ['Soft Summer'] },
+  { hex: '#F3A3A4', h: 359.2, s: 76.9,  l: 79.6, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#FFA38B', h: 12.4,  s: 100.0, l: 77.3, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#ED9DA8', h: 351.8, s: 69.0,  l: 77.3, group: 'red', seasons: ['Soft Summer'] },
+  { hex: '#F28C83', h: 4.9,   s: 81.0,  l: 73.1, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#E78B91', h: 356.1, s: 65.7,  l: 72.5, group: 'red', seasons: ['Soft Summer'] },
+  { hex: '#F08080', h: 0.0,   s: 78.9,  l: 72.2, group: 'red', seasons: ['Deep Autumn'] },
+  { hex: '#FF8D6D', h: 13.2,  s: 100.0, l: 71.4, group: 'red', seasons: ['Clear Spring','Light Spring'] },
+  { hex: '#E68486', h: 358.8, s: 66.2,  l: 71.0, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#F07886', h: 353.0, s: 80.0,  l: 70.6, group: 'red', seasons: ['Clear Spring'] },
+  { hex: '#EF7171', h: 0.0,   s: 79.7,  l: 69.0, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#E07A86', h: 352.9, s: 62.2,  l: 67.8, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#EA6B6A', h: 0.5,   s: 75.3,  l: 66.7, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#EB636F', h: 354.7, s: 77.3,  l: 65.5, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#EF5D60', h: 358.8, s: 82.0,  l: 65.1, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#DB7078', h: 355.5, s: 59.8,  l: 64.9, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#EE5A53', h: 2.7,   s: 82.0,  l: 62.9, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#EE4E59', h: 355.9, s: 82.5,  l: 62.0, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#CF6877', h: 351.3, s: 51.8,  l: 61.0, group: 'red', seasons: ['Soft Summer'] },
+  { hex: '#E74E63', h: 351.8, s: 76.1,  l: 60.6, group: 'red', seasons: ['Cool Winter'] },
+  { hex: '#EE4A45', h: 1.8,   s: 83.3,  l: 60.2, group: 'red', seasons: ['Light Spring'] },
+  { hex: '#EC4E46', h: 2.9,   s: 81.4,  l: 60.0, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#DF5750', h: 2.9,   s: 69.1,  l: 59.4, group: 'red', seasons: ['Clear Spring'] },
+  { hex: '#E04B5F', h: 351.9, s: 70.6,  l: 58.6, group: 'red', seasons: ['Light Summer'] },
+  { hex: '#DC5F4C', h: 7.9,   s: 67.3,  l: 58.0, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#DD4A62', h: 350.2, s: 68.4,  l: 57.8, group: 'red', seasons: ['Clear Winter'] },
+  { hex: '#EC5037', h: 8.3,   s: 82.6,  l: 57.1, group: 'red', seasons: ['Warm Spring','Warm Autumn','Deep Autumn'] },
+  { hex: '#E1593E', h: 9.9,   s: 73.1,  l: 56.3, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#E44639', h: 4.6,   s: 76.0,  l: 55.9, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#DE4437', h: 4.7,   s: 71.7,  l: 54.3, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#CE4D42', h: 4.7,   s: 58.8,  l: 53.3, group: 'red', seasons: ['Deep Autumn'] },
+  { hex: '#DC343B', h: 357.5, s: 70.6,  l: 53.3, group: 'red', seasons: ['Warm Spring'] },
+  { hex: '#D0342C', h: 2.9,   s: 65.1,  l: 49.4, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#C04D3C', h: 7.7,   s: 52.4,  l: 49.4, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#D74025', h: 9.1,   s: 70.6,  l: 49.4, group: 'red', seasons: ['Clear Winter'] },
+  { hex: '#C43B32', h: 3.7,   s: 59.3,  l: 48.2, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#DA291C', h: 4.1,   s: 77.2,  l: 48.2, group: 'red', seasons: ['Clear Spring','Warm Spring'] },
+  { hex: '#C05131', h: 13.4,  s: 59.3,  l: 47.3, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#C63A24', h: 8.1,   s: 69.2,  l: 45.9, group: 'red', seasons: ['Clear Winter'] },
+  { hex: '#AD3D47', h: 354.6, s: 47.9,  l: 45.9, group: 'red', seasons: ['Soft Autumn'] },
+  { hex: '#A73340', h: 353.3, s: 53.2,  l: 42.7, group: 'red', seasons: ['Warm Autumn'] },
+  { hex: '#AE2837', h: 353.3, s: 62.6,  l: 42.0, group: 'red', seasons: ['Deep Autumn'] },
+  { hex: '#AD2522', h: 1.3,   s: 67.1,  l: 40.6, group: 'red', seasons: ['Deep Winter'] },
+  // pink (32)
+  { hex: '#F1BDC8', h: 347.3, s: 65.0,  l: 84.3, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#F3B2CC', h: 336.0, s: 73.0,  l: 82.5, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#FFA3B5', h: 348.3, s: 100.0, l: 82.0, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#F09EAC', h: 349.8, s: 73.2,  l: 78.0, group: 'pink', seasons: ['Clear Spring'] },
+  { hex: '#EC9AAC', h: 346.8, s: 68.3,  l: 76.5, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#F18FA1', h: 349.0, s: 77.8,  l: 75.3, group: 'pink', seasons: ['Deep Winter'] },
+  { hex: '#F0869E', h: 346.4, s: 77.9,  l: 73.3, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#EC81A0', h: 342.6, s: 73.8,  l: 71.6, group: 'pink', seasons: ['Light Spring'] },
+  { hex: '#EA829A', h: 346.2, s: 71.2,  l: 71.4, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#F67599', h: 343.3, s: 87.8,  l: 71.2, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#EF7BA5', h: 338.3, s: 78.4,  l: 71.0, group: 'pink', seasons: ['Clear Winter'] },
+  { hex: '#EF7B94', h: 347.1, s: 78.4,  l: 71.0, group: 'pink', seasons: ['Light Spring'] },
+  { hex: '#D592AA', h: 338.5, s: 44.4,  l: 70.4, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#EA728C', h: 347.0, s: 74.1,  l: 68.2, group: 'pink', seasons: ['Cool Summer'] },
+  { hex: '#E96395', h: 337.6, s: 75.3,  l: 65.1, group: 'pink', seasons: ['Clear Spring'] },
+  { hex: '#EB6081', h: 345.8, s: 77.7,  l: 64.9, group: 'pink', seasons: ['Light Spring'] },
+  { hex: '#F65275', h: 347.2, s: 90.1,  l: 64.3, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#EE536E', h: 349.5, s: 82.0,  l: 62.9, group: 'pink', seasons: ['Clear Winter'] },
+  { hex: '#E35B8F', h: 337.1, s: 70.8,  l: 62.4, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#D95F8B', h: 338.4, s: 61.6,  l: 61.2, group: 'pink', seasons: ['Cool Summer'] },
+  { hex: '#DF5485', h: 338.8, s: 68.5,  l: 60.2, group: 'pink', seasons: ['Clear Spring'] },
+  { hex: '#E05077', h: 343.8, s: 69.9,  l: 59.6, group: 'pink', seasons: ['Clear Spring'] },
+  { hex: '#E24565', h: 347.8, s: 73.0,  l: 57.8, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#D05083', h: 336.1, s: 57.7,  l: 56.5, group: 'pink', seasons: ['Light Summer'] },
+  { hex: '#DA3D58', h: 349.7, s: 68.0,  l: 54.7, group: 'pink', seasons: ['Clear Spring'] },
+  { hex: '#D43A7A', h: 335.1, s: 64.2,  l: 52.9, group: 'pink', seasons: ['Clear Winter'] },
+  { hex: '#CE3D66', h: 343.0, s: 59.7,  l: 52.4, group: 'pink', seasons: ['Deep Winter'] },
+  { hex: '#BB4C69', h: 344.3, s: 44.9,  l: 51.6, group: 'pink', seasons: ['Soft Summer'] },
+  { hex: '#BC486A', h: 342.4, s: 46.4,  l: 51.0, group: 'pink', seasons: ['Cool Summer'] },
+  { hex: '#E40046', h: 341.6, s: 100.0, l: 44.7, group: 'pink', seasons: ['Clear Winter','Clear Spring'] },
+  { hex: '#CE0037', h: 344.0, s: 100.0, l: 40.4, group: 'pink', seasons: ['Clear Winter','Cool Winter','Deep Winter'] },
+  { hex: '#BF0D3E', h: 343.5, s: 87.3,  l: 40.0, group: 'pink', seasons: ['Cool Summer'] },
+  // purple (22)
+  { hex: '#F4D1E3', h: 329.1, s: 61.4,  l: 88.8, group: 'purple', seasons: ['Clear Winter'] },
+  { hex: '#EEBDD2', h: 334.3, s: 59.0,  l: 83.7, group: 'purple', seasons: ['Cool Summer'] },
+  { hex: '#F4B2E2', h: 316.4, s: 75.0,  l: 82.7, group: 'purple', seasons: ['Light Summer'] },
+  { hex: '#ECB3CB', h: 334.7, s: 60.0,  l: 81.4, group: 'purple', seasons: ['Light Summer'] },
+  { hex: '#F1A6CB', h: 330.4, s: 72.8,  l: 79.8, group: 'purple', seasons: ['Cool Winter'] },
+  { hex: '#F0A1D1', h: 323.5, s: 72.5,  l: 78.6, group: 'purple', seasons: ['Cool Winter'] },
+  { hex: '#F395C7', h: 328.1, s: 79.7,  l: 76.9, group: 'purple', seasons: ['Clear Winter','Cool Winter','Cool Summer'] },
+  { hex: '#F098C5', h: 329.3, s: 74.6,  l: 76.9, group: 'purple', seasons: ['Light Summer'] },
+  { hex: '#DD9CDF', h: 298.2, s: 51.1,  l: 74.3, group: 'purple', seasons: ['Light Summer'] },
+  { hex: '#E791B7', h: 333.5, s: 64.2,  l: 73.7, group: 'purple', seasons: ['Cool Summer'] },
+  { hex: '#F57EB6', h: 331.8, s: 85.6,  l: 72.7, group: 'purple', seasons: ['Cool Summer','Light Summer'] },
+  { hex: '#E290B4', h: 333.7, s: 58.6,  l: 72.5, group: 'purple', seasons: ['Cool Summer'] },
+  { hex: '#EE76AA', h: 334.0, s: 77.9,  l: 69.8, group: 'purple', seasons: ['Clear Spring'] },
+  { hex: '#E277CD', h: 311.8, s: 64.8,  l: 67.6, group: 'purple', seasons: ['Cool Summer'] },
+  { hex: '#EA6AC5', h: 317.3, s: 75.3,  l: 66.7, group: 'purple', seasons: ['Clear Winter'] },
+  { hex: '#EF60A3', h: 331.9, s: 81.7,  l: 65.7, group: 'purple', seasons: ['Cool Summer'] },
+  { hex: '#EA62AE', h: 326.5, s: 76.4,  l: 65.1, group: 'purple', seasons: ['Cool Winter'] },
+  { hex: '#DC6F9D', h: 334.7, s: 60.9,  l: 64.9, group: 'purple', seasons: ['Deep Winter'] },
+  { hex: '#EC5D9A', h: 334.4, s: 79.0,  l: 64.5, group: 'purple', seasons: ['Clear Spring'] },
+  { hex: '#D86AA0', h: 330.5, s: 58.5,  l: 63.1, group: 'purple', seasons: ['Cool Winter'] },
+  { hex: '#D3589D', h: 326.3, s: 58.3,  l: 58.6, group: 'purple', seasons: ['Cool Winter'] },
+  { hex: '#E3006D', h: 331.2, s: 100.0, l: 44.5, group: 'purple', seasons: ['Cool Winter','Deep Winter'] },
+];
+
+// ─── Season mapping ───────────────────────────────────────────────────────────
+const BASE_TO_SUBS = {
+  spring: ['Light Spring', 'Warm Spring', 'Clear Spring'],
+  summer: ['Light Summer', 'Cool Summer', 'Soft Summer'],
+  autumn: ['Soft Autumn', 'Warm Autumn', 'Deep Autumn'],
+  winter: ['Clear Winter', 'Cool Winter', 'Deep Winter'],
+};
+
+// ─── Mood group weights ───────────────────────────────────────────────────────
+// Applied after role+L+S filter. Boosts group probability without hard-excluding.
+const MOOD_WEIGHTS = {
+  happy:     { orange: 1.5, red: 1.2, pink: 1.0, purple: 0.7 },
+  calm:      { orange: 1.0, red: 0.8, pink: 1.2, purple: 1.0 },
+  cute:      { orange: 0.8, red: 1.0, pink: 1.6, purple: 1.0 },
+  confident: { orange: 1.0, red: 1.7, pink: 0.9, purple: 0.8 },
+  romantic:  { orange: 0.7, red: 0.9, pink: 1.6, purple: 1.2 },
+  fresh:     { orange: 1.5, red: 1.2, pink: 0.9, purple: 0.8 },
+  cool:      { orange: 0.5, red: 0.8, pink: 1.0, purple: 1.7 },
+};
+
+// ─── Name generators ──────────────────────────────────────────────────────────
+const MOOD_ADJ = {
+  happy:     ['Sunlit', 'Apricot', 'Daylight', 'Honeyed', 'Bright', 'Warm', 'Golden'],
+  calm:      ['Misty', 'Quiet', 'Haze', 'Soft', 'Still', 'Dew', 'Linen'],
+  cute:      ['Sugar', 'Sweet', 'Bubbly', 'Dainty', 'Candy', 'Dreamy', 'Fluffy'],
+  confident: ['Bold', 'Fired', 'Edge', 'Power', 'Vivid', 'Striking', 'Sharp'],
+  romantic:  ['Petal', 'Bloom', 'Tender', 'Blushed', 'Velvety', 'Satin', 'Wistful'],
+  fresh:     ['Citrus', 'Dewy', 'Crisp', 'Airy', 'Sparkling', 'Zest', 'Clear'],
+  cool:      ['Glacier', 'Slate', 'Frost', 'Steel', 'Mist', 'Iced', 'Stone'],
+};
+
+const GROUP_NOUN = {
+  orange: ['Tangerine', 'Apricot', 'Honey', 'Amber', 'Glow', 'Ember', 'Spice'],
+  red:    ['Ember', 'Cherry', 'Sunset', 'Flame', 'Heat', 'Scarlet', 'Blaze'],
+  pink:   ['Petal', 'Bloom', 'Blush', 'Sugar', 'Rose', 'Coral', 'Candy'],
+  purple: ['Iris', 'Plum', 'Violet', 'Twilight', 'Berry', 'Orchid', 'Dusk'],
+};
+
+// ─── Story generator ──────────────────────────────────────────────────────────
+function makeLipStory(lip) {
+  const depth = lip.l < 45 ? 'deep' : lip.l < 55 ? 'rich' : 'soft';
+  const tone  = lip.s < 60 ? 'dusty' : 'true';
+  return `A ${depth} ${tone} mouth`;
+}
+
+// ─── Weighted random pick (no replacement across calls) ───────────────────────
+// candidates: array of pool entries. weights: MOOD_WEIGHTS[mood].
+// Returns one entry sampled by group weight.
+function weightedPick(candidates, weights) {
+  const total = candidates.reduce((sum, c) => sum + (weights[c.group] || 1), 0);
+  let r = Math.random() * total;
+  for (const c of candidates) {
+    r -= (weights[c.group] || 1);
+    if (r <= 0) return c;
+  }
+  return candidates[candidates.length - 1];
+}
+
+// Sample `n` distinct items without replacement using weighted random.
+// Falls back to uniform if weights degenerate, then allows duplicates if pool too small.
+function sampleN(candidates, n, weights) {
+  if (candidates.length === 0) return [];
+  const pool = candidates.slice();
+  const result = [];
+  while (result.length < n && pool.length > 0) {
+    const pick = weightedPick(pool, weights);
+    result.push(pick);
+    pool.splice(pool.indexOf(pick), 1);
+  }
+  // If pool exhausted before n, fill with duplicates rather than crash.
+  while (result.length < n) {
+    result.push(candidates[Math.floor(Math.random() * candidates.length)]);
+  }
+  return result;
+}
+
+// ─── Role filter helpers ──────────────────────────────────────────────────────
+function filterEyes(pool)  { return pool.filter(c => (c.group === 'orange' || c.group === 'red' || c.group === 'purple') && c.l >= 40 && c.l <= 70); }
+function filterCheek(pool) { return pool.filter(c => (c.group === 'orange' || c.group === 'red' || c.group === 'pink')   && c.l >= 65 && c.l <= 85 && c.s >= 50); }
+function filterLips(pool)  { return pool.filter(c => (c.group === 'red'    || c.group === 'pink')                        && c.l >= 38 && c.l <= 58); }
+
+// Widen L band by ±5 and retry — used only when a role band has fewer than 3 candidates.
+function filterEyesWide(pool)  { return pool.filter(c => (c.group === 'orange' || c.group === 'red' || c.group === 'purple') && c.l >= 35 && c.l <= 75); }
+function filterCheekWide(pool) { return pool.filter(c => (c.group === 'orange' || c.group === 'red' || c.group === 'pink')   && c.l >= 60 && c.l <= 90 && c.s >= 45); }
+function filterLipsWide(pool)  { return pool.filter(c => (c.group === 'red'    || c.group === 'pink')                        && c.l >= 33 && c.l <= 63); }
+
+// ─── Look name generator ──────────────────────────────────────────────────────
+function makeLookName(mood, lipGroup, usedNames) {
+  const adjs  = MOOD_ADJ[mood]  || MOOD_ADJ.calm;
+  const nouns = GROUP_NOUN[lipGroup] || GROUP_NOUN.red;
+  // Try all adj×noun combinations until a unique name is found.
+  for (let tries = 0; tries < adjs.length * nouns.length; tries++) {
+    const adj  = adjs[Math.floor(Math.random() * adjs.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    const name = `${adj} ${noun}`;
+    if (!usedNames.has(name)) return name;
+  }
+  // Fallback: append ordinal suffix.
+  const base = `${adjs[0]} ${nouns[0]}`;
+  let suffix = 2;
+  while (usedNames.has(`${base} ${suffix}`)) suffix++;
+  return `${base} ${suffix}`;
+}
+
+// ─── Main look generator ──────────────────────────────────────────────────────
+// Returns 3 fresh looks each call (non-deterministic — new random each time).
+function getLooks(season, mood, outfit) {
+  const subs = BASE_TO_SUBS[season] || BASE_TO_SUBS.spring;
+  const weights = MOOD_WEIGHTS[mood] || MOOD_WEIGHTS.calm;
+
+  // Filter pool to current season's sub-seasons.
+  const seasonPool = COSMETIC_POOL.filter(c => c.seasons.some(s => subs.includes(s)));
+
+  // Apply role filters; widen L band if fewer than 3 candidates.
+  let eyeBand   = filterEyes(seasonPool);
+  let cheekBand = filterCheek(seasonPool);
+  let lipBand   = filterLips(seasonPool);
+
+  if (eyeBand.length   < 3) eyeBand   = filterEyesWide(seasonPool);
+  if (cheekBand.length < 3) cheekBand = filterCheekWide(seasonPool);
+  if (lipBand.length   < 3) lipBand   = filterLipsWide(seasonPool);
+
+  // Sample 3 distinct hexes per role (no replacement within role).
+  const eyePicks   = sampleN(eyeBand,   3, weights);
+  const cheekPicks = sampleN(cheekBand, 3, weights);
+  const lipPicks   = sampleN(lipBand,   3, weights);
+
+  const tint = OUTFIT_TINT[outfit] || OUTFIT_TINT.white;
+  const usedNames = new Set();
+  const randomSuffix = Math.random().toString(36).slice(2, 7);
+
+  return [0, 1, 2].map(i => {
+    const eyeEntry   = eyePicks[i];
+    const cheekEntry = cheekPicks[i];
+    const lipEntry   = lipPicks[i];
+    const name = makeLookName(mood, lipEntry.group, usedNames);
+    usedNames.add(name);
+    return {
+      id: `${season}-${mood}-${i}-${randomSuffix}`,
+      name,
+      eyes:  eyeEntry.hex,
+      cheek: cheekEntry.hex,
+      lips:  lipEntry.hex,
+      story: makeLipStory(lipEntry),
+      outfit,
+      tint,
+    };
+  });
+}
+
+window.PCD_DATA = { SEASONS, MOODS, OUTFITS, OUTFIT_TINT, getLooks };
+  </script>
+
+
+  <!-- ═══ ui-bits.jsx ═══ -->
+  <script type="text/babel">
+// ui-bits.jsx — shared visual primitives for the Personal Color app.
+// Sparkles, illustrated face avatar (used as a stylized stand-in for the
+// uploaded photo so the makeup-mapping demo reads cleanly), progress dots,
+// pill buttons.
+
+// ─────────────────────────────────────────────────────────────
+// Sparkle field — randomized but deterministic per seed so screens
+// don't reshuffle every render.
+// ─────────────────────────────────────────────────────────────
+const FOUR_STAR_PATH = 'M50,5 C52,28 72,48 95,50 C72,52 52,72 50,95 C48,72 28,52 5,50 C28,48 48,28 50,5 Z';
+
+function Sparkles({ count = 14, seed = 1, intensity = 1, color = '#FFE6B5' }) {
+  // mulberry32 prng — same seed, same star positions.
+  const stars = React.useMemo(() => {
+    let s = seed * 1.618 + 1;
+    const rand = () => {
+      s = (s * 9301 + 49297) % 233280;
+      return s / 233280;
+    };
+    return Array.from({ length: count }, (_, i) => ({
+      x: rand() * 100,
+      y: rand() * 100,
+      size: 4 + rand() * 16,
+      rot: rand() * 360,
+      delay: rand() * 4,
+      opacity: 0.35 + rand() * 0.55,
+    }));
+  }, [count, seed]);
+  if (intensity <= 0) return null;
+  return (
+    <div style={{
+      position: 'absolute', inset: 0, pointerEvents: 'none',
+      opacity: intensity, overflow: 'hidden',
+    }}>
+      {stars.map((st, i) => (
+        <svg key={i} viewBox="0 0 100 100" style={{
+          position: 'absolute',
+          left: `${st.x}%`, top: `${st.y}%`,
+          width: st.size, height: st.size,
+          transform: `translate(-50%,-50%) rotate(${st.rot}deg)`,
+          opacity: st.opacity,
+          animation: `pcdTwinkle 3.2s ease-in-out ${st.delay}s infinite`,
+          filter: 'drop-shadow(0 0 6px rgba(255,230,180,0.5))',
+        }}>
+          <path d={FOUR_STAR_PATH} fill={color} />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Illustrated face avatar — stylized portrait whose eyelids, cheeks,
+// and lips accept tint overrides so we can demo "makeup mapping"
+// without trying to color-process a real photo (which would look bad).
+// ─────────────────────────────────────────────────────────────
+function FaceAvatar({
+  eyesColor = null, cheeksColor = null, lipsColor = null,
+  skin = '#F4D2BB', hair = '#2A1F1A',
+  style = {}, glow = true,
+}) {
+  return (
+    <svg viewBox="0 0 200 240" style={{ width: '100%', height: '100%', display: 'block', ...style }}>
+      <defs>
+        <radialGradient id="pcd-face-grad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#FFE3D2" />
+          <stop offset="100%" stopColor={skin} />
+        </radialGradient>
+        <filter id="pcd-soft" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" />
+        </filter>
+        <filter id="pcd-soft-lg" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" />
+        </filter>
+        <linearGradient id="pcd-hair-grad" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor={hair} />
+          <stop offset="100%" stopColor={hair} stopOpacity="0.85" />
+        </linearGradient>
+      </defs>
+
+      {/* shoulders fading out — "no border, blurs into background" per sketch */}
+      <ellipse cx="100" cy="260" rx="120" ry="40"
+               fill={hair} opacity="0.15" filter="url(#pcd-soft-lg)" />
+
+      {/* hair back */}
+      <path d="M40 110 Q40 40 100 30 Q160 40 160 110 L165 170 Q140 200 100 200 Q60 200 35 170 Z"
+            fill="url(#pcd-hair-grad)" />
+
+      {/* face */}
+      <ellipse cx="100" cy="120" rx="58" ry="72" fill="url(#pcd-face-grad)" />
+
+      {/* hair front fringe */}
+      <path d="M48 90 Q60 60 100 55 Q140 60 152 90 Q140 78 120 80 Q104 70 100 78 Q96 70 80 80 Q60 78 48 90 Z"
+            fill="url(#pcd-hair-grad)" />
+
+      {/* cheeks (tint target) */}
+      {cheeksColor && (
+        <g filter="url(#pcd-soft-lg)" opacity="0.75">
+          <ellipse cx="68"  cy="138" rx="14" ry="10" fill={cheeksColor} />
+          <ellipse cx="132" cy="138" rx="14" ry="10" fill={cheeksColor} />
+        </g>
+      )}
+
+      {/* brows */}
+      <path d="M62 102 Q74 96 86 102" stroke={hair} strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M114 102 Q126 96 138 102" stroke={hair} strokeWidth="3" fill="none" strokeLinecap="round" />
+
+      {/* eyelid tint */}
+      {eyesColor && (
+        <g filter="url(#pcd-soft)" opacity="0.85">
+          <path d="M60 112 Q74 106 88 112 Q86 116 74 117 Q63 116 60 112 Z" fill={eyesColor} />
+          <path d="M112 112 Q126 106 140 112 Q137 116 126 117 Q115 116 112 112 Z" fill={eyesColor} />
+        </g>
+      )}
+
+      {/* eyes */}
+      <g fill={hair}>
+        <ellipse cx="74"  cy="118" rx="4" ry="3.2" />
+        <ellipse cx="126" cy="118" rx="4" ry="3.2" />
+      </g>
+      <g fill="#fff" opacity="0.9">
+        <circle cx="75.5" cy="117" r="0.9" />
+        <circle cx="127.5" cy="117" r="0.9" />
+      </g>
+
+      {/* nose */}
+      <path d="M100 125 Q98 142 94 150 Q98 152 100 150 Q102 152 106 150 Q102 142 100 125"
+            fill="none" stroke="#D9A88F" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+
+      {/* lips */}
+      <g>
+        {/* upper lip */}
+        <path d="M82 168 Q90 162 100 166 Q110 162 118 168 Q110 174 100 172 Q90 174 82 168 Z"
+              fill={lipsColor || '#C9706A'} opacity={lipsColor ? 1 : 0.55} />
+        {/* lower lip */}
+        <path d="M84 170 Q100 184 116 170 Q108 180 100 180 Q92 180 84 170 Z"
+              fill={lipsColor || '#C9706A'} opacity={lipsColor ? 0.95 : 0.55} />
+        {/* shine */}
+        <ellipse cx="100" cy="170.5" rx="6" ry="1.2" fill="#fff" opacity="0.55" />
+      </g>
+
+      {/* outer glow */}
+      {glow && (
+        <ellipse cx="100" cy="120" rx="74" ry="86" fill="none"
+                 stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
+      )}
+    </svg>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Soft pill button + ghost variant
+// ─────────────────────────────────────────────────────────────
+function PillButton({ children, onClick, variant = 'primary', disabled = false, fullWidth = false, style = {} }) {
+  const base = {
+    fontFamily: 'Inter, system-ui, sans-serif',
+    fontSize: 16, fontWeight: 600,
+    padding: '16px 28px',
+    borderRadius: 999,
+    border: 'none',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    transition: 'transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease',
+    width: fullWidth ? '100%' : 'auto',
+    letterSpacing: 0.1,
+    opacity: disabled ? 0.45 : 1,
+  };
+  const variants = {
+    primary: {
+      background: 'linear-gradient(180deg, #2A1F1A 0%, #1A100C 100%)',
+      color: '#FFF6F0',
+      boxShadow: '0 12px 28px -8px rgba(42,31,26,0.45), inset 0 1px 0 rgba(255,255,255,0.08)',
+    },
+    ghost: {
+      background: 'rgba(255,255,255,0.55)',
+      color: '#2A1F1A',
+      backdropFilter: 'blur(8px)',
+      boxShadow: '0 1px 0 rgba(255,255,255,0.9) inset, 0 0 0 1px rgba(42,31,26,0.08)',
+    },
+    glass: {
+      background: 'rgba(255,255,255,0.7)',
+      color: '#2A1F1A',
+      backdropFilter: 'blur(12px)',
+      boxShadow: '0 8px 24px -6px rgba(42,31,26,0.18), inset 0 1px 0 rgba(255,255,255,0.9)',
+    },
+  };
+  return (
+    <button onClick={disabled ? undefined : onClick}
+            disabled={disabled}
+            onMouseDown={(e) => !disabled && (e.currentTarget.style.transform = 'scale(0.97)')}
+            onMouseUp={(e) => (e.currentTarget.style.transform = '')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = '')}
+            style={{ ...base, ...variants[variant], ...style }}>
+      {children}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Progress dots — hidden on welcome
+// ─────────────────────────────────────────────────────────────
+function StepDots({ step, total = 5 }) {
+  return (
+    <div style={{ display: 'flex', gap: 6, justifyContent: 'center', padding: '8px 0' }}>
+      {Array.from({ length: total }).map((_, i) => (
+        <div key={i} style={{
+          width: i === step ? 22 : 6,
+          height: 6, borderRadius: 999,
+          background: i <= step ? '#2A1F1A' : 'rgba(42,31,26,0.18)',
+          transition: 'all 0.3s ease',
+        }} />
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Color swatch chip — for look cards & save screen
+// ─────────────────────────────────────────────────────────────
+function SwatchChip({ color, label, size = 36 }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+      <div style={{
+        width: size, height: size, borderRadius: 999,
+        background: color,
+        boxShadow: '0 4px 12px -4px rgba(42,31,26,0.25), inset 0 0 0 2px rgba(255,255,255,0.6)',
+      }} />
+      {label && <div style={{
+        fontFamily: 'Inter, sans-serif', fontSize: 10,
+        textTransform: 'uppercase', letterSpacing: 0.8,
+        color: 'rgba(42,31,26,0.55)',
+      }}>{label}</div>}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Soft animated gradient blob — used as ambient bg accents.
+// ─────────────────────────────────────────────────────────────
+function GradientBlob({ color, x = '50%', y = '50%', size = 240, blur = 60, opacity = 0.7, delay = 0 }) {
+  return (
+    <div style={{
+      position: 'absolute',
+      left: x, top: y,
+      width: size, height: size,
+      transform: 'translate(-50%, -50%)',
+      background: color, borderRadius: '50%',
+      filter: `blur(${blur}px)`,
+      opacity, pointerEvents: 'none',
+      animation: `pcdFloat 9s ease-in-out ${delay}s infinite`,
+    }} />
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Wrapper that fades + slides screens
+// ─────────────────────────────────────────────────────────────
+function ScreenFrame({ screenKey, children, bg }) {
+  return (
+    <div key={screenKey} style={{
+      position: 'absolute', inset: 0,
+      background: bg,
+      animation: 'pcdScreenIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both',
+      overflow: 'hidden',
+    }}>
+      {children}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// Cropped photo — renders the user's photo with the (zoom, panX, panY)
+// crop applied. Used everywhere the photo appears (Setup, Outfit,
+// Looks preview, Save) so the same framing carries through the whole
+// app and the makeup overlay lands on the right facial features.
+//
+// panX/panY are expressed in viewBox 0–100 units (% of container).
+// ─────────────────────────────────────────────────────────────
+function CroppedPhoto({ photo, frame, style = {}, clipPath = null }) {
+  const { zoom = 1, panX = 0, panY = 0 } = frame || {};
+  if (!photo) return null;
+  // CSS transforms apply right-to-left → effective screen shift =
+  // scale × translate, so we divide our intended % shift by zoom.
+  return (
+    <div style={{
+      position: 'absolute', inset: 0, overflow: 'hidden',
+      clipPath: clipPath || undefined,
+      ...style,
+    }}>
+      <img src={photo} alt=""
+           draggable={false}
+           style={{
+             width: '100%', height: '100%', objectFit: 'cover',
+             transform: `scale(${zoom}) translate(${panX/zoom}%, ${panY/zoom}%)`,
+             transformOrigin: 'center center',
+             pointerEvents: 'none',
+             userSelect: 'none',
+           }} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// FaceStage — the SINGLE source of truth for face geometry.
+// N'Mild's photo is a fixed portrait (1067×1428). To keep the makeup
+// filter landing on the SAME facial point on every screen — no matter
+// the frame's shape — we render the photo inside a wrapper locked to
+// the photo's own aspect ratio and sized to *cover* its parent
+// (centered, parent clips the overflow). Because the wrapper always
+// matches the image's aspect ratio, a landmark/overlay percentage maps
+// to the exact same pixel of N'Mild's face in Setup, Outfit, Looks and
+// Save alike. Pass children (landmark handles, makeup overlay) to have
+// them share that coordinate space. The parent MUST be
+// position:relative + overflow:hidden.
+const PHOTO_AR = '1067 / 1428';
+function FaceStage({ photo, photoFrame, innerRef, children, style = {} }) {
+  return (
+    <div ref={innerRef}
+      style={{
+        position: 'absolute', top: '50%', left: '50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth: '100%', minHeight: '100%',
+        aspectRatio: PHOTO_AR,
+        ...style,
+      }}>
+      <CroppedPhoto photo={photo} frame={photoFrame} />
+      {children}
+    </div>
+  );
+}
+
+Object.assign(window, {
+  Sparkles, FaceAvatar, PillButton, StepDots, SwatchChip, GradientBlob, ScreenFrame, CroppedPhoto, FaceStage,
+});
+  </script>
+
+
+  <!-- ═══ face-mesh-data.jsx — baked MediaPipe landmarks ═══ -->
+  <script type="text/babel" src="face-mesh-data.jsx"></script>
+
+  <!-- ═══ screens.jsx ═══ -->
+  <script type="text/babel">
+// screens.jsx — all 8 screens of the Personal Color Daily Look app.
+// Pure presentational; each receives state + setState callbacks.
+
+const { SEASONS, MOODS, OUTFITS, getLooks } = window.PCD_DATA;
+
+// 1. Welcome ────────────────────────────────────────────────────────
+function WelcomeScreen({ glitter, onStart }) {
+  return (
+    <ScreenFrame screenKey="welcome"
+    bg="linear-gradient(160deg, #FFF1E1 0%, #F4D5E5 45%, #DCD0EC 100%)">
+      <Sparkles count={Math.round(18 * glitter)} seed={1} intensity={glitter} />
+      <GradientBlob color="#FFB7A1" x="20%" y="22%" size={260} opacity={0.55} />
+      <GradientBlob color="#C8C2E5" x="80%" y="80%" size={300} opacity={0.5} delay={2} />
+      <div style={{ position: 'relative', height: '100%', display: 'flex',
+        flexDirection: 'column', padding: '64px 28px 36px' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column',
+          justifyContent: 'center', alignItems: 'center', textAlign: 'center', gap: 24 }}>
+          {/* logo mark */}
+          <div style={{ position: 'relative', width: 96, height: 96 }}>
+            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%',
+              background: 'conic-gradient(from 0deg, #FFB7A1, #FFD27A, #C9E4C8, #A8C9E1, #C8C2E5, #E8B7C2, #FFB7A1)',
+              filter: 'blur(2px)' }} />
+            <div style={{ position: 'absolute', inset: 12, borderRadius: '50%',
+              background: '#FFF6F0', display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'Fraunces, serif', fontSize: 36, fontWeight: 500,
+              color: '#2A1F1A' }}>🎂</div>
+          </div>
+          <div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 13, fontWeight: 500,
+              letterSpacing: 3, textTransform: 'uppercase',
+              color: 'rgba(42,31,26,0.55)', marginBottom: 12 }}>
+              Personal Color · Daily Look
+            </div>
+            <h1 style={{ fontFamily: 'Fraunces, serif', fontWeight: 400,
+              fontSize: 44, lineHeight: 1.05, margin: 0, color: '#2A1F1A',
+              fontStyle: 'italic', letterSpacing: -0.5 }}>
+              N'Mild<br /><span style={{ fontStyle: 'normal' }}>Today's color</span>
+            </h1>
+            <p style={{ fontFamily: 'Inter, sans-serif', fontSize: 15.5, lineHeight: 1.5,
+              color: 'rgba(42,31,26,0.7)', marginTop: 18, maxWidth: 280 }}>
+              Three makeup looks a day, picked just for you.
+              Happy Birthday N'Mild! 🎂 Love you always ♡
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10,
+              alignItems: 'center', marginTop: 28 }}>
+              <PillButton onClick={onStart}>Start your look ✦</PillButton>
+              <div style={{ textAlign: 'center', fontFamily: 'Inter, sans-serif',
+                fontSize: 12, color: 'rgba(42,31,26,0.5)' }}>
+                Takes ~30 seconds
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ScreenFrame>);
+
+}
+
+
+// 2. Setup — N'Mild's face with auto-detected mesh + season picker ──────
+// MediaPipe Face Mesh landmarks are baked in face-mesh-data.jsx.
+// No manual dragging needed — the filter maps to her actual features
+// automatically. The wireframe overlay shows what was detected.
+
+function SetupScreen({ glitter, photo, photoFrame,
+  season, onSeason, onNext, onBack }) {
+  const [showMesh, setShowMesh] = React.useState(false);
+  const [highlight, setHighlight] = React.useState(null);
+  const canContinue = !!season;
+
+  const ZONES = [
+    { id: 'eyes',  label: 'Eyes',   color: '#C9923E' },
+    { id: 'lips',  label: 'Lips',   color: '#C13A4E' },
+    { id: null,     label: 'All',    color: '#2A1F1A' },
+  ];
+
+  return (
+    <ScreenFrame screenKey="setup"
+    bg="linear-gradient(170deg, #FFF6F0 0%, #FFE3D2 50%, #F4ECF4 100%)">
+      <Sparkles count={Math.round(10 * glitter)} seed={2} intensity={glitter * 0.55} />
+      <ScreenHeader step={0} onBack={onBack} title="About you" />
+
+      <div style={{ padding: '0 20px 16px',
+        display: 'flex', flexDirection: 'column', gap: 12,
+        height: 'calc(100% - 110px)', minHeight: 0,
+        overflow: 'hidden',
+        scrollbarWidth: 'none' }}>
+
+        {/* ── N'Mild's face with auto-detected mesh ── */}
+        <section style={{ flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+          <SectionLabel>
+            Face detection
+            <div style={{ marginLeft: 'auto', display: 'flex', gap: 6 }}>
+              {ZONES.map((z) => (
+                <button key={z.label} onClick={() => setHighlight(z.id)}
+                  style={{
+                    background: highlight === z.id ? (z.color || '#2A1F1A') : 'rgba(255,255,255,0.78)',
+                    color: highlight === z.id ? '#FFF6F0' : '#2A1F1A',
+                    border: 'none', borderRadius: 999,
+                    padding: '3px 8px', cursor: 'pointer',
+                    fontFamily: 'Inter, sans-serif', fontSize: 9,
+                    fontWeight: 600, letterSpacing: 1,
+                    textTransform: 'uppercase',
+                    boxShadow: 'inset 0 0 0 1px rgba(42,31,26,0.08)',
+                    transition: 'all 0.14s ease',
+                  }}>{z.label}</button>
+              ))}
+            </div>
+          </SectionLabel>
+
+          <div style={{
+            marginTop: 8,
+            background: 'rgba(255,255,255,0.55)',
+            borderRadius: 24,
+            position: 'relative', overflow: 'hidden',
+            userSelect: 'none',
+            boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.7)', height: "404px"
+          }}>
+            <FaceStage photo={photo} photoFrame={photoFrame}>
+              {showMesh && <FaceMeshWireframe highlight={highlight} intensity={0.55} />}
+            </FaceStage>
+
+            {/* detected badge */}
+            <div style={{ position: 'absolute', top: 12, left: 12,
+              background: 'rgba(42,31,26,0.78)', color: '#FFF6F0',
+              backdropFilter: 'blur(8px)',
+              borderRadius: 999, padding: '5px 12px',
+              fontFamily: 'Inter, sans-serif', fontSize: 10,
+              fontWeight: 600, letterSpacing: 1.2,
+              textTransform: 'uppercase',
+              display: 'flex', alignItems: 'center', gap: 6,
+              boxShadow: '0 4px 12px -4px rgba(42,31,26,0.4)' }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%',
+                background: '#6ECB63', boxShadow: '0 0 6px #6ECB63' }}></span>
+              478 points detected
+            </div>
+
+            {/* mesh toggle */}
+            <button onClick={() => setShowMesh(!showMesh)}
+              style={{ position: 'absolute', top: 12, right: 12,
+                background: showMesh ? 'rgba(42,31,26,0.78)' : 'rgba(255,255,255,0.78)',
+                color: showMesh ? '#FFF6F0' : '#2A1F1A',
+                backdropFilter: 'blur(8px)',
+                border: 'none', borderRadius: 999,
+                padding: '5px 12px', cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif', fontSize: 10,
+                fontWeight: 600, letterSpacing: 1.2,
+                textTransform: 'uppercase',
+                boxShadow: '0 4px 12px -4px rgba(42,31,26,0.4)',
+                transition: 'all 0.14s ease',
+              }}>
+              {showMesh ? '◉ Mesh' : '○ Mesh'}
+            </button>
+
+            {/* info pill */}
+            <div style={{ position: 'absolute', left: 12, right: 12, bottom: 12,
+              background: 'rgba(42,31,26,0.82)', color: '#FFF6F0',
+              backdropFilter: 'blur(8px)',
+              borderRadius: 12, padding: '8px 12px',
+              fontFamily: 'Inter, sans-serif', fontSize: 12,
+              display: 'flex', alignItems: 'center', gap: 8,
+              boxShadow: '0 6px 16px -6px rgba(42,31,26,0.5)' }}>
+              <span style={{ fontSize: 14 }}>✨</span>
+              <span>Filter will map to the detected features automatically</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Personal color (simple button row) ── */}
+        <section style={{ flexShrink: 0 }}>
+          <SectionLabel>Personal color</SectionLabel>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr',
+            gap: 8, marginTop: 8 }}>
+            {Object.entries(SEASONS).map(([key, s]) => {
+              const active = season === key;
+              return (
+                <button key={key} onClick={() => onSeason(key)}
+                style={{
+                  background: active ? s.bg : 'rgba(255,255,255,0.78)',
+                  color: '#2A1F1A',
+                  border: 'none', borderRadius: 14,
+                  padding: '10px 6px 8px', cursor: 'pointer',
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', gap: 6,
+                  boxShadow: active ?
+                  '0 0 0 2px #2A1F1A, 0 8px 18px -6px rgba(42,31,26,0.3)' :
+                  '0 3px 8px -3px rgba(42,31,26,0.12), inset 0 0 0 1px rgba(42,31,26,0.06)',
+                  transition: 'all 0.18s ease',
+                  transform: active ? 'translateY(-1px)' : 'none'
+                }}>
+                  <div style={{ display: 'flex', gap: 2 }}>
+                    {s.swatch.slice(0, 4).map((c, i) =>
+                    <div key={i} style={{
+                      width: 8, height: 8, borderRadius: '50%', background: c,
+                      boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.55)'
+                    }} />
+                    )}
+                  </div>
+                  <span style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                    fontSize: 14, fontWeight: 500, lineHeight: 1 }}>
+                    {s.label}
+                  </span>
+                </button>);
+
+            })}
+          </div>
+        </section>
+
+        <div style={{ paddingTop: 8, flexShrink: 0 }}>
+          <PillButton fullWidth onClick={onNext} disabled={!canContinue}>
+            {!season ? 'Pick your season' : 'Continue'}
+          </PillButton>
+        </div>
+      </div>
+    </ScreenFrame>);
+
+}
+
+function SectionLabel({ children }) {
+  return (
+    <div style={{
+      fontFamily: 'Inter, sans-serif', fontSize: 11, fontWeight: 600,
+      textTransform: 'uppercase', letterSpacing: 1.4,
+      color: 'rgba(42,31,26,0.6)',
+      display: 'flex', alignItems: 'baseline'
+    }}>
+      {children}
+    </div>);
+
+}
+
+// 4. Outfit ────────────────────────────────────────────────────────
+// Layout: uploaded photo at top (so the user can see themselves), with a
+// horizontal carousel of outfit-type cards at the bottom. The active card
+// shows a swatch row when the outfit supports an accent color.
+
+// Per-outfit-type structural metadata (controls accent picker visibility and
+// how the garment SVG paints itself). Accent palette comes from the user's
+// season so picks stay harmonious.
+const OUTFIT_KIND = {
+  'white': { primary: '#FFFFFF', secondary: null, accent: false },
+  'black': { primary: '#1A1714', secondary: null, accent: false },
+  'colorful': { primary: null, secondary: null, accent: true, multi: true },
+  'white-color': { primary: '#FFFFFF', secondary: 'accent', accent: true },
+  'black-color': { primary: '#1A1714', secondary: 'accent', accent: true }
+};
+
+function GarmentIcon({ outfitId, accent, size = 64 }) {
+  const k = OUTFIT_KIND[outfitId] || OUTFIT_KIND.white;
+  const shirt = k.primary || (k.multi ? accent : accent);
+  const pants = k.secondary === 'accent' ? accent : k.multi ? '#FFFFFF' : k.primary || accent;
+  return (
+    <svg viewBox="0 0 100 100" style={{ width: size, height: size }}>
+      <defs>
+        <linearGradient id={`g-${outfitId}-${accent.replace('#', '')}`} x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor={shirt} stopOpacity="1" />
+          <stop offset="100%" stopColor={shirt} stopOpacity="0.85" />
+        </linearGradient>
+      </defs>
+      {/* shirt */}
+      <path d="M30 28 L42 22 Q50 30 58 22 L70 28 L78 38 L70 44 L70 60 L30 60 L30 44 L22 38 Z"
+      fill={`url(#g-${outfitId}-${accent.replace('#', '')})`}
+      stroke="rgba(42,31,26,0.18)" strokeWidth="1" strokeLinejoin="round" />
+      {/* collar */}
+      <path d="M42 22 Q50 30 58 22 L54 30 Q50 34 46 30 Z" fill="rgba(42,31,26,0.12)" />
+      {/* pants */}
+      <path d="M30 60 L70 60 L66 92 L54 92 L50 70 L46 92 L34 92 Z"
+      fill={pants}
+      stroke="rgba(42,31,26,0.18)" strokeWidth="1" strokeLinejoin="round" />
+      {/* if multi (colorful), add little dots */}
+      {k.multi &&
+      <g>
+          <circle cx="42" cy="42" r="3" fill="#FFB7A1" />
+          <circle cx="58" cy="48" r="3" fill="#C8C2E5" />
+          <circle cx="50" cy="36" r="2.5" fill="#C9E4C8" />
+        </g>
+      }
+    </svg>);
+
+}
+
+function OutfitScreen({ glitter, season, photo, photoFrame, outfit, outfitColor, onOutfit, onOutfitColor, onNext, onBack }) {
+  const sBg = SEASONS[season]?.bg || 'linear-gradient(170deg, #FFF6F0, #FFE3D2)';
+  // Fixed accent palette — independent of personal-color season so users can
+  // pick whatever their actual outfit color is.
+  const accentPalette = [
+  '#FFD86B', // yellow
+  '#FF9F6B', // orange
+  '#E64A5E', // red
+  '#7BC47F', // green
+  '#6B9FE6', // blue
+  '#5BC8C2', // turquoise
+  '#F291B5', // pink
+  '#A87A56' // brown
+  ];
+  const activeKind = OUTFIT_KIND[outfit];
+  const supportsAccent = activeKind?.accent;
+  const accent = outfitColor || accentPalette[0];
+  const activeMeta = OUTFITS.find((o) => o.id === outfit);
+
+  // Pick a sensible default accent when entering an accent-capable outfit.
+  React.useEffect(() => {
+    if (supportsAccent && !outfitColor) onOutfitColor(accentPalette[0]);
+    // eslint-disable-next-line
+  }, [outfit, supportsAccent]);
+
+  return (
+    <ScreenFrame screenKey="outfit" bg={sBg}>
+      <Sparkles count={Math.round(10 * glitter)} seed={4} intensity={glitter * 0.6} />
+      <div style={{ position: 'absolute', inset: 0,
+        background: 'linear-gradient(180deg, rgba(255,246,240,0.55) 0%, rgba(255,246,240,0.92) 70%)' }} />
+      <ScreenHeader step={1} onBack={onBack} title="Today's outfit" />
+
+      <div style={{ position: 'relative', padding: '0 20px 16px',
+        display: 'flex', flexDirection: 'column', gap: 14,
+        height: 'calc(100% - 110px)' }}>
+        {/* — TOP: user's photo with garment overlay tease — */}
+        <div style={{
+          flex: '1 1 auto',
+          borderRadius: 28, overflow: 'hidden', position: 'relative',
+          background: 'linear-gradient(160deg, #FFE3D2, #F4ECF4)',
+          boxShadow: '0 16px 32px -14px rgba(42,31,26,0.22), inset 0 0 0 1px rgba(255,255,255,0.5)',
+          minHeight: 0
+        }}>
+          {photo ?
+          <FaceStage photo={photo} photoFrame={photoFrame} /> :
+
+          <div style={{ width: '100%', height: '100%',
+            display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: '70%', maxWidth: 220 }}>
+                <FaceAvatar />
+              </div>
+            </div>
+          }
+          {/* color wash sample from the chosen outfit — sits at the bottom like clothing */}
+          <div style={{
+            position: 'absolute', left: 0, right: 0, bottom: 0,
+            height: '32%',
+            background: activeKind ?
+            activeKind.multi ?
+            `linear-gradient(180deg, transparent 0%, ${accent}99 30%, ${accent}cc 100%)` :
+            `linear-gradient(180deg, transparent 0%, ${activeKind.primary || accent}cc 35%, ${activeKind.primary || accent}ee 100%)` :
+            'linear-gradient(180deg, transparent, rgba(42,31,26,0.05))',
+            mixBlendMode: activeKind?.primary === '#FFFFFF' ? 'screen' : 'normal',
+            pointerEvents: 'none',
+            transition: 'background 0.3s ease'
+          }} />
+          {/* tag */}
+          <div style={{ position: 'absolute', top: 14, left: 14,
+            background: 'rgba(255,246,240,0.85)',
+            backdropFilter: 'blur(10px)',
+            padding: '4px 10px', borderRadius: 999,
+            fontFamily: 'Inter, sans-serif', fontSize: 10,
+            letterSpacing: 1.4, textTransform: 'uppercase',
+            color: '#2A1F1A' }}>
+            ✦ {SEASONS[season]?.label}
+          </div>
+          {/* active outfit label — overlayed bottom-left */}
+          {activeMeta && (() => {
+            const isLightWash = activeKind?.primary === '#FFFFFF';
+            const labelColor = isLightWash ? '#2A1F1A' : '#FFF6F0';
+            const shadowColor = isLightWash ? 'rgba(255,255,255,0.6)' : 'rgba(42,31,26,0.5)';
+            return (
+              <div style={{ position: 'absolute', left: 16, right: 16, bottom: 14,
+                color: labelColor,
+                textShadow: `0 2px 12px ${shadowColor}` }}>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+                  textTransform: 'uppercase', letterSpacing: 1.6,
+                  opacity: 0.85 }}>Wearing</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                  fontSize: 24, fontWeight: 400, lineHeight: 1.1, marginTop: 2 }}>
+                  {activeMeta.label}
+                </div>
+              </div>);
+
+          })()}
+        </div>
+
+        {/* — Accent color picker (only when outfit supports it) — */}
+        <div style={{
+          background: 'rgba(255,255,255,0.78)', backdropFilter: 'blur(10px)',
+          borderRadius: 18, padding: '10px 14px',
+          display: 'flex', alignItems: 'center', gap: 10,
+          opacity: supportsAccent ? 1 : 0.45,
+          transition: 'opacity 0.25s ease'
+        }}>
+          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 11,
+            textTransform: 'uppercase', letterSpacing: 1.2,
+            color: 'rgba(42,31,26,0.6)', minWidth: 64 }}>
+            Accent
+          </div>
+          <div style={{ display: 'flex', gap: 6, flex: 1, justifyContent: 'flex-end' }}>
+            {accentPalette.map((c) => {
+              const picked = supportsAccent && accent === c;
+              return (
+                <button key={c}
+                onClick={() => supportsAccent && onOutfitColor(c)}
+                disabled={!supportsAccent}
+                aria-label={`Accent ${c}`}
+                style={{
+                  width: 24, height: 24, borderRadius: 999,
+                  background: c, border: 'none',
+                  cursor: supportsAccent ? 'pointer' : 'default',
+                  boxShadow: picked ?
+                  '0 0 0 2.5px #2A1F1A, inset 0 0 0 2px #FFF6F0, 0 4px 10px -2px rgba(42,31,26,0.3)' :
+                  'inset 0 0 0 1.5px rgba(255,255,255,0.6), 0 2px 6px rgba(0,0,0,0.12)',
+                  transform: picked ? 'scale(1.1)' : 'scale(1)',
+                  transition: 'all 0.18s ease',
+                  flexShrink: 0
+                }} />);
+
+            })}
+          </div>
+        </div>
+
+        {/* — Bottom: horizontal carousel of outfit cards — */}
+        <div style={{
+          display: 'flex', gap: 10, overflowX: 'auto',
+          padding: '4px 4px 8px',
+          marginLeft: -4, marginRight: -4,
+          scrollSnapType: 'x mandatory',
+          scrollbarWidth: 'none'
+        }}>
+          {OUTFITS.map((o) => {
+            const active = outfit === o.id;
+            const k = OUTFIT_KIND[o.id];
+            const cardAccent = k.accent ? accent : k.primary || '#FFFFFF';
+            return (
+              <button key={o.id} onClick={() => onOutfit(o.id)}
+              style={{
+                flex: '0 0 92px',
+                scrollSnapAlign: 'center',
+                background: active ? '#2A1F1A' : 'rgba(255,255,255,0.82)',
+                color: active ? '#FFF6F0' : '#2A1F1A',
+                border: 'none', borderRadius: 18,
+                padding: '10px 8px 8px', cursor: 'pointer',
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', gap: 4,
+                boxShadow: active ?
+                '0 12px 22px -6px rgba(42,31,26,0.4)' :
+                '0 4px 10px -4px rgba(42,31,26,0.12), inset 0 0 0 1px rgba(42,31,26,0.06)',
+                transform: active ? 'translateY(-2px) scale(1.03)' : 'none',
+                transition: 'all 0.2s ease'
+              }}>
+                <div style={{
+                  width: 56, height: 56, borderRadius: 14,
+                  background: active ? 'rgba(255,246,240,0.08)' : '#FFF6F0',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: active ? 'none' : 'inset 0 0 0 1px rgba(42,31,26,0.05)'
+                }}>
+                  <GarmentIcon outfitId={o.id} accent={cardAccent} size={48} />
+                </div>
+                <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+                  fontWeight: 600, textAlign: 'center',
+                  lineHeight: 1.1, letterSpacing: 0.1 }}>
+                  {o.label}
+                </div>
+              </button>);
+
+          })}
+        </div>
+
+        <PillButton fullWidth onClick={onNext} disabled={!outfit}>Continue</PillButton>
+      </div>
+    </ScreenFrame>);
+
+}
+
+// 5. Mood ──────────────────────────────────────────────────────────
+// Swipeable horizontal card stack (CSS scroll-snap). One card at a time;
+// the centered card IS the selected mood. No tap-to-select — just swipe.
+
+const MOOD_BG = {
+  happy: ['#FFF1C5', '#FFD68F'],
+  calm: ['#E8F2DA', '#C9E4C8'],
+  cute: ['#FFE3EC', '#F4C7D8'],
+  confident: ['#FFE0E0', '#E89A9A'],
+  romantic: ['#FFE6F0', '#F2BCD0'],
+  fresh: ['#FFF6DC', '#DCE8C2'],
+  cool: ['#E2EAF2', '#B8CADC']
+};
+
+function MoodScreen({ glitter, mood, onMood, onNext, onBack }) {
+  const initialIdx = Math.max(0, MOODS.findIndex((x) => x.id === mood));
+  const safeIdx = initialIdx >= 0 ? initialIdx : 0;
+  const trackRef = React.useRef(null);
+  const cardRefs = React.useRef([]);
+  const [activeIdx, setActiveIdx] = React.useState(safeIdx);
+
+  const m = MOODS[activeIdx] || MOODS[0];
+  const moodBg = `linear-gradient(170deg, ${MOOD_BG[m.id][0]} 0%, ${MOOD_BG[m.id][1]} 100%)`;
+
+  React.useEffect(() => {
+    const card = cardRefs.current[activeIdx];
+    if (card && trackRef.current) {
+      const track = trackRef.current;
+      const target = card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
+      track.scrollTo({ left: target, behavior: 'auto' });
+    }
+    onMood(MOODS[activeIdx].id);
+    // eslint-disable-next-line
+  }, []);
+
+  const onScroll = React.useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let best = 0;let bestDist = Infinity;
+    cardRefs.current.forEach((c, i) => {
+      if (!c) return;
+      const cc = c.offsetLeft + c.offsetWidth / 2;
+      const d = Math.abs(cc - center);
+      if (d < bestDist) {bestDist = d;best = i;}
+    });
+    if (best !== activeIdx) {
+      setActiveIdx(best);
+      onMood(MOODS[best].id);
+    }
+  }, [activeIdx, onMood]);
+
+  const swipeTo = (i) => {
+    const card = cardRefs.current[i];
+    const track = trackRef.current;
+    if (!card || !track) return;
+    const target = card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
+    track.scrollTo({ left: target, behavior: 'auto' });
+  };
+
+  return (
+    <ScreenFrame screenKey="mood" bg={moodBg}>
+      <Sparkles count={Math.round(22 * glitter)} seed={5 + activeIdx} intensity={glitter} />
+      <GradientBlob color="rgba(255,255,255,0.85)" x="50%" y="35%" size={320} blur={60} opacity={0.45} />
+      <ScreenHeader step={2} onBack={onBack} title="Today's mood" />
+
+      <div style={{ position: 'relative', padding: '0 0 16px',
+        display: 'flex', flexDirection: 'column',
+        height: 'calc(100% - 110px)' }}>
+        {/* ── TOP: big animated emoji + name + vibe (kept from previous version) ── */}
+        <div key={m.id /* re-trigger bob on change */}
+        style={{
+          flex: '0 0 38%',
+          display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: '0 24px',
+          animation: 'pcdFadeIn 0.35s ease both'
+        }}>
+          <div style={{
+            fontSize: 110, lineHeight: 1,
+            filter: 'drop-shadow(0 18px 36px rgba(42,31,26,0.18))',
+            animation: 'pcdBob 4s ease-in-out infinite'
+          }}>{m.emoji}</div>
+          <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+            fontSize: 34, color: '#2A1F1A', marginTop: 14, fontWeight: 400,
+            lineHeight: 1 }}>
+            {m.label}
+          </div>
+          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 13,
+            color: 'rgba(42,31,26,0.6)', marginTop: 4, letterSpacing: 0.2 }}>
+            {m.vibe}
+          </div>
+        </div>
+
+        {/* ── BOTTOM: swipeable card stack (fan / Polaroid layout) ── */}
+        <div style={{ flex: 1, position: 'relative',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'flex-end', minHeight: 0 }}>
+          {/* swipe hint */}
+          <div style={{ textAlign: 'center', fontFamily: 'Inter, sans-serif',
+            fontSize: 10, letterSpacing: 1.8, textTransform: 'uppercase',
+            color: 'rgba(42,31,26,0.45)', marginBottom: 6,
+            display: 'flex', justifyContent: 'center',
+            alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 12 }}>‹</span> Swipe <span style={{ fontSize: 12 }}>›</span>
+          </div>
+
+          <div ref={trackRef} onScroll={onScroll}
+          style={{
+            display: 'flex', alignItems: 'flex-end',
+            overflowX: 'auto', overflowY: 'visible',
+            scrollSnapType: 'x mandatory',
+            scrollSnapStop: 'always',
+            scrollbarWidth: 'none',
+            padding: '36px calc(50% - 80px) 24px', // center 160px cards in any width
+            gap: 0,
+            WebkitOverflowScrolling: 'touch'
+          }}>
+            {MOODS.map((opt, i) => {
+              const delta = i - activeIdx;
+              const isActive = delta === 0;
+              const rotate = Math.max(-14, Math.min(14, delta * 8));
+              const translateY = Math.min(18, Math.abs(delta) * 8);
+              const scale = isActive ? 1 : Math.max(0.78, 1 - Math.abs(delta) * 0.08);
+              const opacity = Math.abs(delta) > 2 ? 0.18 : 1 - Math.abs(delta) * 0.18;
+              const z = 10 - Math.abs(delta);
+              const bg = `linear-gradient(165deg, ${MOOD_BG[opt.id][0]} 0%, ${MOOD_BG[opt.id][1]} 100%)`;
+              return (
+                <div key={opt.id} ref={(el) => cardRefs.current[i] = el}
+                style={{
+                  flex: '0 0 160px',
+                  width: 160, height: 220,
+                  scrollSnapAlign: 'center',
+                  marginLeft: i === 0 ? 0 : -50,
+                  marginRight: i === MOODS.length - 1 ? 0 : -50,
+                  borderRadius: 22,
+                  background: bg,
+                  boxShadow: isActive ?
+                  '0 24px 44px -14px rgba(42,31,26,0.38), 0 0 0 1.5px rgba(255,255,255,0.7) inset' :
+                  '0 14px 26px -12px rgba(42,31,26,0.25), 0 0 0 1px rgba(255,255,255,0.55) inset',
+                  transform: `translateY(${translateY}px) scale(${scale}) rotate(${rotate}deg)`,
+                  transformOrigin: 'bottom center',
+                  opacity,
+                  zIndex: z,
+                  transition: 'transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.32s ease, box-shadow 0.32s ease',
+                  position: 'relative',
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', justifyContent: 'space-between',
+                  padding: '14px 12px 18px',
+                  overflow: 'hidden',
+                  flexShrink: 0
+                }}>
+                  {/* number badge */}
+                  <div style={{
+                    alignSelf: 'flex-start',
+                    width: 26, height: 26, borderRadius: 999,
+                    background: 'rgba(255,255,255,0.85)',
+                    color: '#2A1F1A',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                    fontSize: 13, fontWeight: 500,
+                    boxShadow: '0 1px 2px rgba(42,31,26,0.15)'
+                  }}>{i + 1}</div>
+                  {/* emoji */}
+                  <div style={{
+                    fontSize: 64, lineHeight: 1,
+                    filter: 'drop-shadow(0 6px 14px rgba(42,31,26,0.15))',
+                    animation: isActive ? 'pcdBob 4s ease-in-out infinite' : 'none'
+                  }}>{opt.emoji}</div>
+                  {/* label */}
+                  <div style={{
+                    fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                    fontSize: 20, color: '#2A1F1A', fontWeight: 500,
+                    letterSpacing: 0.2
+                  }}>{opt.label}</div>
+                </div>);
+
+            })}
+          </div>
+
+          {/* dots */}
+          <div style={{ display: 'flex', justifyContent: 'center',
+            gap: 6, padding: '14px 24px 8px' }}>
+            {MOODS.map((_, i) =>
+            <button key={i} onClick={() => swipeTo(i)}
+            aria-label={`Mood ${i + 1}`}
+            style={{
+              width: i === activeIdx ? 22 : 6, height: 6,
+              borderRadius: 999, border: 'none',
+              background: i === activeIdx ? '#2A1F1A' : 'rgba(42,31,26,0.22)',
+              transition: 'all 0.25s ease', cursor: 'pointer', padding: 0
+            }} />
+            )}
+          </div>
+        </div>
+
+        <div style={{ padding: '4px 24px 0' }}>
+          <PillButton fullWidth onClick={onNext}>See my 3 looks</PillButton>
+        </div>
+      </div>
+    </ScreenFrame>);
+
+}
+
+// 6. Looks — merged results + preview ──────────────────────────────
+// Mirrors the Mood screen pattern: live face-mapping preview on top,
+// fan-style swipeable card stack of the 3 looks on bottom. Swipe to
+// change the active look; the preview updates in place.
+
+function ColorPip({ color }) {
+  return (
+    <div style={{
+      width: 16, height: 16, borderRadius: 999, background: color,
+      boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,0.6), 0 1px 3px rgba(0,0,0,0.1)'
+    }} />);
+
+}
+
+// Pick legible text color for an arbitrary background. Uses YIQ luminance —
+// cheap and works for the kind of warm/cool pastels we ship here.
+function pickContrast(hex) {
+  if (!hex) return '#2A1F1A';
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 150 ? '#2A1F1A' : '#FFF6F0';
+}
+
+function FaceWithMakeup({ photo, photoFrame, look, intensity = 1, rounded = 18 }) {
+  if (!look) return null;
+  if (!photo) {
+    return (
+      <div style={{ width: '100%', height: '100%',
+        display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: '78%', maxWidth: 220, opacity: 0.4 + intensity * 0.6 }}>
+          <FaceAvatar eyesColor={look.eyes} cheeksColor={look.cheek} lipsColor={look.lips}
+          glow={false} />
+        </div>
+      </div>);
+
+  }
+  return (
+    <div style={{ position: 'absolute', inset: 0, borderRadius: rounded, overflow: 'hidden' }}>
+      <FaceStage photo={photo} photoFrame={photoFrame}>
+        <div style={{
+          position: 'absolute', inset: 0, opacity: intensity,
+          background: makeupFromMesh(look),
+          mixBlendMode: 'multiply', pointerEvents: 'none'
+        }} />
+        {/* Eyes — separate soft-light layer for natural blending */}
+        <div style={{
+          position: 'absolute', inset: 0, opacity: intensity,
+          background: makeupEyesFromMesh(look),
+          mixBlendMode: 'soft-light', pointerEvents: 'none'
+        }} />
+      </FaceStage>
+      <div style={{
+        position: 'absolute', inset: 0, opacity: intensity * 0.35,
+        background: `linear-gradient(180deg, ${look.eyes}22 0%, transparent 30%, transparent 70%, ${look.lips}22 100%)`,
+        pointerEvents: 'none'
+      }} />
+    </div>);
+
+}
+
+function LooksScreen({ glitter, season, mood, outfit, photo, photoFrame, onSave, onBack }) {
+  const looks = React.useMemo(() => getLooks(season, mood, outfit), [season, mood, outfit]);
+  const [activeIdx, setActiveIdx] = React.useState(0);
+
+  const [intensity, setIntensity] = React.useState(0.85);
+  const trackRef = React.useRef(null);
+  const cardRefs = React.useRef([]);
+  const active = looks[activeIdx] || looks[0];
+
+  // Center the active card on first render (and when activeIdx changes
+  // programmatically via dots).
+  React.useEffect(() => {
+    const card = cardRefs.current[activeIdx];
+    if (card && trackRef.current) {
+      const track = trackRef.current;
+      const target = card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
+      track.scrollTo({ left: target, behavior: 'auto' });
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const onScroll = React.useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let best = 0;let bestDist = Infinity;
+    cardRefs.current.forEach((c, i) => {
+      if (!c) return;
+      const cc = c.offsetLeft + c.offsetWidth / 2;
+      const d = Math.abs(cc - center);
+      if (d < bestDist) {bestDist = d;best = i;}
+    });
+    if (best !== activeIdx) setActiveIdx(best);
+  }, [activeIdx]);
+
+  const swipeTo = (i) => {
+    const card = cardRefs.current[i];
+    const track = trackRef.current;
+    if (!card || !track) return;
+    const target = card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
+    track.scrollTo({ left: target, behavior: 'auto' });
+  };
+
+  const screenBg = `linear-gradient(170deg, ${active?.cheek || '#FFE3D2'}33 0%, ${active?.lips || '#F4C7C5'}22 50%, #F0E3F2 100%)`;
+
+  return (
+    <ScreenFrame screenKey="looks" bg={screenBg}>
+      <Sparkles count={Math.round(14 * glitter)} seed={6 + activeIdx} intensity={glitter * 0.7} />
+      <ScreenHeader step={3} onBack={onBack} title="Your daily 3" />
+
+      <div style={{ position: 'relative', padding: '0 0 16px',
+        display: 'flex', flexDirection: 'column',
+        height: 'calc(100% - 110px)' }}>
+
+        {/* ── TOP: face with makeup applied ── */}
+        <div style={{
+          flex: '0 0 52%',
+          padding: '0 20px',
+          display: 'flex', flexDirection: 'column', gap: 8
+        }}>
+          <div key={active?.id}
+          style={{
+            flex: 1, borderRadius: 26, overflow: 'hidden',
+            background: `linear-gradient(160deg, ${active?.eyes || '#FFE3D2'}33, ${active?.cheek || '#F4C7C5'}33)`,
+            position: 'relative',
+            boxShadow: '0 14px 28px -12px rgba(42,31,26,0.22), inset 0 0 0 1px rgba(255,255,255,0.55)',
+            animation: 'pcdFadeIn 0.35s ease both'
+          }}>
+            <FaceWithMakeup photo={photo} photoFrame={photoFrame} look={active} intensity={intensity} rounded={26} />
+            {/* season tag */}
+            <div style={{ position: 'absolute', top: 12, left: 12,
+              background: 'rgba(255,246,240,0.85)',
+              backdropFilter: 'blur(10px)',
+              padding: '4px 10px', borderRadius: 999,
+              fontFamily: 'Inter, sans-serif', fontSize: 10,
+              letterSpacing: 1.4, textTransform: 'uppercase',
+              color: '#2A1F1A' }}>
+              ✦ {SEASONS[season]?.label}
+            </div>
+            {/* look name overlay */}
+            <div style={{ position: 'absolute', left: 14, right: 14, bottom: 12,
+              color: '#FFF6F0',
+              textShadow: '0 2px 14px rgba(42,31,26,0.6)' }}>
+              <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+                textTransform: 'uppercase', letterSpacing: 1.6,
+                opacity: 0.85 }}>
+                Look {String(activeIdx + 1).padStart(2, '0')} · {(MOODS.find((m) => m.id === mood) || {}).label}
+              </div>
+              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                fontSize: 22, fontWeight: 400, lineHeight: 1.1, marginTop: 2 }}>
+                {active?.name}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Filter intensity slider ── */}
+        <div style={{ padding: '10px 20px 0' }}>
+          <div style={{ background: 'rgba(255,255,255,0.72)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: 14, padding: '8px 12px',
+            display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+              textTransform: 'uppercase', letterSpacing: 1.2,
+              color: 'rgba(42,31,26,0.55)', minWidth: 64 }}>
+              Filter
+            </span>
+            <input type="range" min={0} max={1} step={0.01} value={intensity}
+            onChange={(e) => setIntensity(parseFloat(e.target.value))}
+            style={{ flex: 1, accentColor: '#2A1F1A' }} />
+            <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 11,
+              fontVariantNumeric: 'tabular-nums',
+              color: '#2A1F1A', minWidth: 32, textAlign: 'right' }}>
+              {Math.round(intensity * 100)}%
+            </span>
+          </div>
+        </div>
+
+        {/* ── BOTTOM: swipeable fan stack of look cards ── */}
+        <div style={{ flex: 1, position: 'relative',
+          display: 'flex', flexDirection: 'column',
+          justifyContent: 'flex-end', minHeight: 0 }}>
+          <div style={{ textAlign: 'center', fontFamily: 'Inter, sans-serif',
+            fontSize: 10, letterSpacing: 1.8, textTransform: 'uppercase',
+            color: 'rgba(42,31,26,0.45)', marginBottom: 6,
+            display: 'flex', justifyContent: 'center',
+            alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 12 }}>‹</span> Swipe to pick <span style={{ fontSize: 12 }}>›</span>
+          </div>
+
+          <div ref={trackRef} onScroll={onScroll}
+          style={{
+            display: 'flex', alignItems: 'flex-end',
+            overflowX: 'auto', overflowY: 'visible',
+            scrollSnapType: 'x mandatory',
+            scrollSnapStop: 'always',
+            scrollbarWidth: 'none',
+            padding: '24px calc(50% - 76px) 14px',
+            WebkitOverflowScrolling: 'touch'
+          }}>
+            {looks.map((lk, i) => {
+              const delta = i - activeIdx;
+              const isActive = delta === 0;
+              const rotate = Math.max(-12, Math.min(12, delta * 8));
+              const translateY = Math.min(18, Math.abs(delta) * 8);
+              const scale = isActive ? 1 : Math.max(0.82, 1 - Math.abs(delta) * 0.08);
+              const opacity = 1 - Math.abs(delta) * 0.18;
+              const z = 10 - Math.abs(delta);
+              return (
+                <div key={lk.id} ref={(el) => cardRefs.current[i] = el}
+                style={{
+                  flex: '0 0 152px',
+                  width: 152, height: 178,
+                  scrollSnapAlign: 'center',
+                  marginLeft: i === 0 ? 0 : -48,
+                  marginRight: i === looks.length - 1 ? 0 : -48,
+                  borderRadius: 22,
+                  background: '#FFF6F0',
+                  boxShadow: isActive ?
+                  '0 24px 44px -14px rgba(42,31,26,0.38), 0 0 0 1.5px rgba(255,255,255,0.7) inset' :
+                  '0 14px 26px -12px rgba(42,31,26,0.25), 0 0 0 1px rgba(255,255,255,0.55) inset',
+                  transform: `translateY(${translateY}px) scale(${scale}) rotate(${rotate}deg)`,
+                  transformOrigin: 'bottom center',
+                  opacity,
+                  zIndex: z,
+                  transition: 'transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.32s ease, box-shadow 0.32s ease',
+                  position: 'relative',
+                  display: 'flex', flexDirection: 'column',
+                  overflow: 'hidden',
+                  flexShrink: 0
+                }}>
+                  {/* header strip — number + look name */}
+                  <div style={{
+                    padding: '10px 12px 8px',
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    background: '#FFF6F0', zIndex: 2
+                  }}>
+                    <div style={{
+                      width: 22, height: 22, borderRadius: 999,
+                      background: '#2A1F1A', color: '#FFF6F0',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                      fontSize: 11, fontWeight: 500, flexShrink: 0
+                    }}>{i + 1}</div>
+                    <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                      fontSize: 14, color: '#2A1F1A',
+                      lineHeight: 1.1, fontWeight: 500,
+                      overflow: 'hidden', textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap' }}>
+                      {lk.name}
+                    </div>
+                  </div>
+                  {/* 3 big color bands — EYES / CHEEKS / LIPS — fill the rest */}
+                  {[
+                  { label: 'Eyes', color: lk.eyes },
+                  { label: 'Cheeks', color: lk.cheek },
+                  { label: 'Lips', color: lk.lips }].
+                  map((band, bi) =>
+                  <div key={band.label}
+                  style={{
+                    flex: 1,
+                    background: band.color,
+                    display: 'flex', alignItems: 'center',
+                    padding: '0 14px',
+                    position: 'relative'
+                  }}>
+                      <span style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: 10, fontWeight: 700,
+                      letterSpacing: 2, textTransform: 'uppercase',
+                      // pick legible contrast: dark text on light bands, light on dark
+                      color: pickContrast(band.color),
+                      textShadow: pickContrast(band.color) === '#FFF6F0' ?
+                      '0 1px 2px rgba(0,0,0,0.25)' :
+                      '0 1px 2px rgba(255,255,255,0.35)'
+                    }}>
+                        {band.label}
+                      </span>
+                      <span style={{
+                      marginLeft: 'auto',
+                      fontFamily: 'Fraunces, serif',
+                      fontStyle: 'italic', fontSize: 12,
+                      color: pickContrast(band.color),
+                      opacity: 0.7
+                    }}>
+                        ✦
+                      </span>
+                    </div>
+                  )}
+                </div>);
+
+            })}
+          </div>
+
+          {/* dots */}
+          <div style={{ display: 'flex', justifyContent: 'center',
+            gap: 6, padding: '10px 24px 6px' }}>
+            {looks.map((_, i) =>
+            <button key={i} onClick={() => swipeTo(i)}
+            aria-label={`Look ${i + 1}`}
+            style={{
+              width: i === activeIdx ? 22 : 6, height: 6,
+              borderRadius: 999, border: 'none',
+              background: i === activeIdx ? '#2A1F1A' : 'rgba(42,31,26,0.22)',
+              transition: 'all 0.25s ease', cursor: 'pointer', padding: 0
+            }} />
+            )}
+          </div>
+        </div>
+
+        <div style={{ padding: '4px 24px 0' }}>
+          <PillButton fullWidth onClick={() => onSave(active)}>
+            Save this look ✦
+          </PillButton>
+        </div>
+      </div>
+    </ScreenFrame>);
+
+}
+
+// 8. Save / share ──────────────────────────────────────────────────
+function SaveScreen({ glitter, look, photo, photoFrame, season, onVoucher, onBack }) {
+  if (!look) return null;
+  return (
+    <ScreenFrame screenKey="save"
+    bg="linear-gradient(170deg, #FFF1E1 0%, #F4D5E5 50%, #DCD0EC 100%)">
+      <Sparkles count={Math.round(28 * glitter)} seed={9} intensity={glitter} />
+      <GradientBlob color={look.cheek} x="20%" y="20%" size={240} opacity={0.5} />
+      <GradientBlob color={look.lips} x="80%" y="85%" size={260} opacity={0.45} delay={1.5} />
+      <ScreenHeader step={4} onBack={onBack} title="Saved" subtitle="Today's look" />
+      <div style={{ padding: '0 24px 16px',
+        display: 'flex', flexDirection: 'column', gap: 14,
+        height: 'calc(100% - 110px)', position: 'relative' }}>
+        {/* result card (the saveable artifact) */}
+        <div style={{
+          flex: 1, background: '#FFF6F0', borderRadius: 28,
+          padding: 18, display: 'flex', flexDirection: 'column', gap: 14,
+          boxShadow: '0 24px 48px -16px rgba(42,31,26,0.28)',
+          position: 'relative', overflow: 'hidden'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+                textTransform: 'uppercase', letterSpacing: 1.6,
+                color: 'rgba(42,31,26,0.55)' }}>
+                {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+              </div>
+              <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+                fontSize: 26, color: '#2A1F1A', marginTop: 2, lineHeight: 1.05 }}>
+                {look.name}
+              </div>
+            </div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontSize: 24,
+              color: '#2A1F1A' }}>✦</div>
+          </div>
+
+          {/* face image w/ overlay */}
+          <div style={{ flex: 1, borderRadius: 20, overflow: 'hidden',
+            position: 'relative',
+            background: `linear-gradient(160deg, ${look.eyes}33, ${look.cheek}33)` }}>
+            {photo ?
+            <div style={{ position: 'absolute', inset: 0 }}>
+                <FaceStage photo={photo} photoFrame={photoFrame}>
+                  <div style={{
+                  position: 'absolute', inset: 0, opacity: 0.85,
+                  background: makeupFromMesh(look),
+                  mixBlendMode: 'multiply'
+                }} />
+                  {/* Eyes — separate soft-light layer */}
+                  <div style={{
+                  position: 'absolute', inset: 0, opacity: 0.85,
+                  background: makeupEyesFromMesh(look),
+                  mixBlendMode: 'soft-light'
+                }} />
+                </FaceStage>
+              </div> :
+
+            <div style={{ padding: '12px 20px', height: '100%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{ width: '100%', maxWidth: 200 }}>
+                  <FaceAvatar eyesColor={look.eyes} cheeksColor={look.cheek} lipsColor={look.lips} />
+                </div>
+              </div>
+            }
+          </div>
+
+          {/* swatches */}
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <SwatchChip color={look.eyes} label="Eyes" />
+            <SwatchChip color={look.cheek} label="Cheeks" />
+            <SwatchChip color={look.lips} label="Lips" />
+          </div>
+
+          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 11,
+            color: 'rgba(42,31,26,0.55)', textAlign: 'center',
+            letterSpacing: 0.6, paddingTop: 4,
+            borderTop: '1px dashed rgba(42,31,26,0.15)' }}>
+            {SEASONS[season]?.label} season · daily look ✦ pcd
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 10 }}>
+          <PillButton onClick={() => alert('Saved to your photo library ✦')} style={{ flex: 1 }}>
+            Save to phone
+          </PillButton>
+          <PillButton onClick={onVoucher} style={{ flex: 1.4,
+            background: 'linear-gradient(135deg, #FFB7A1, #C8C2E5)',
+            color: '#2A1F1A' }}>
+            🎁 Open your gift
+          </PillButton>
+        </div>
+      </div>
+    </ScreenFrame>);
+
+}
+
+// ─────────────────────────────────────────────────────────────
+// Shared header (back chevron + step dots + title)
+// ─────────────────────────────────────────────────────────────
+function ScreenHeader({ step, onBack, title, subtitle }) {
+  return (
+    <div style={{ padding: '52px 20px 8px',
+      display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'center',
+        justifyContent: 'space-between', minHeight: 36 }}>
+        <button onClick={onBack} aria-label="Back" style={{
+          width: 36, height: 36, borderRadius: 999,
+          background: 'rgba(255,255,255,0.7)', border: 'none',
+          backdropFilter: 'blur(8px)', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18, color: '#2A1F1A',
+          boxShadow: '0 2px 8px -2px rgba(42,31,26,0.12)'
+        }}>‹</button>
+        <StepDots step={step} total={5} />
+        <div style={{ width: 36 }} />
+      </div>
+      {title &&
+      <div style={{ textAlign: 'center', marginTop: 8 }}>
+          {subtitle &&
+        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+          textTransform: 'uppercase', letterSpacing: 1.6,
+          color: 'rgba(42,31,26,0.5)', marginBottom: 2 }}>{subtitle}</div>
+        }
+          <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+          fontSize: 26, color: '#2A1F1A', fontWeight: 400 }}>{title}</div>
+        </div>
+      }
+    </div>);
+
+}
+
+// 9. Voucher — birthday gift card ──────────────────────────────────
+function VoucherScreen({ glitter, onBack }) {
+  const [revealed, setRevealed] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard?.writeText('HBD-N\'MILD 🤍').catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <ScreenFrame screenKey="voucher"
+    bg="linear-gradient(170deg, #FFF6F0 0%, #FFE3D2 35%, #F4D5E5 65%, #DCD0EC 100%)">
+      <Sparkles count={Math.round(24 * glitter)} seed={42} intensity={glitter * 0.9} />
+      <GradientBlob color="#FFB7A1" x="15%" y="15%" size={200} opacity={0.5} />
+      <GradientBlob color="#C8C2E5" x="85%" y="75%" size={240} opacity={0.45} delay={1.5} />
+
+      <div style={{ position: 'relative', height: '100%', display: 'flex',
+        flexDirection: 'column', padding: '52px 20px 24px' }}>
+
+        {/* back button */}
+        <div style={{ display: 'flex', alignItems: 'center', minHeight: 36 }}>
+          <button onClick={onBack} aria-label="Back" style={{
+            width: 36, height: 36, borderRadius: 999,
+            background: 'rgba(255,255,255,0.7)', border: 'none',
+            backdropFilter: 'blur(8px)', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 18, color: '#2A1F1A',
+            boxShadow: '0 2px 8px -2px rgba(42,31,26,0.12)'
+          }}>‹</button>
+        </div>
+
+        {/* voucher card */}
+        <div style={{
+          display: 'flex', flexDirection: 'column',
+          background: 'rgba(255,255,255,0.88)',
+          backdropFilter: 'blur(16px)',
+          borderRadius: 28,
+          border: '2px dashed rgba(42,31,26,0.12)',
+          overflow: 'hidden',
+          boxShadow: '0 20px 50px -16px rgba(42,31,26,0.18), inset 0 0 0 1px rgba(255,255,255,0.8)',
+          position: 'relative',
+          margin: 'auto 0',
+        }}>
+          {/* decorative top banner — title integrated */}
+          <div style={{
+            background: 'linear-gradient(135deg, #FFD5C8 0%, #F0C4DA 50%, #D4CCE8 100%)',
+            padding: '20px 24px 16px',
+            textAlign: 'center',
+            position: 'relative',
+          }}>
+            <div style={{ fontSize: 28, marginBottom: 4 }}>🎁</div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+              fontSize: 20, color: '#2A1F1A', fontWeight: 400, marginBottom: 10 }}>
+              Your gift
+            </div>
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+              textTransform: 'uppercase', letterSpacing: 2.5,
+              color: 'rgba(42,31,26,0.6)', marginBottom: 4 }}>
+              Cosmetics Voucher
+            </div>
+            <div style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic',
+              fontSize: 48, fontWeight: 600, color: '#2A1F1A',
+              lineHeight: 1.1 }}>
+              ฿3,000
+            </div>
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 12,
+              color: 'rgba(42,31,26,0.55)', marginTop: 4 }}>
+              Sponsor by Phet 💝
+            </div>
+          </div>
+
+          {/* dashed divider with circle cutouts */}
+          <div style={{ position: 'relative', height: 24, flexShrink: 0 }}>
+            <div style={{ position: 'absolute', left: 20, right: 20, top: '50%',
+              borderTop: '2px dashed rgba(42,31,26,0.1)' }} />
+            <div style={{ position: 'absolute', left: -12, top: '50%', transform: 'translateY(-50%)',
+              width: 24, height: 24, borderRadius: '50%',
+              background: 'linear-gradient(170deg, #FFE3D2, #F4D5E5)' }} />
+            <div style={{ position: 'absolute', right: -12, top: '50%', transform: 'translateY(-50%)',
+              width: 24, height: 24, borderRadius: '50%',
+              background: 'linear-gradient(170deg, #F4D5E5, #DCD0EC)' }} />
+          </div>
+
+          {/* body */}
+          <div style={{ padding: '8px 24px 20px',
+            display: 'flex', flexDirection: 'column', gap: 14 }}>
+
+            {/* message */}
+            <div style={{
+              background: 'rgba(255,246,240,0.7)',
+              borderRadius: 16, padding: '14px 16px',
+              textAlign: 'center',
+            }}>
+              <div style={{ fontSize: 20, marginBottom: 6 }}>🎂✨</div>
+              <div style={{ fontFamily: 'Prompt, sans-serif', fontWeight: 400,
+                fontSize: 18, color: '#2A1F1A', lineHeight: 1.5 }}>
+                เลือกสีได้แล้ว<br />ไปเลือกเครื่องสำอางค์ต่อ!
+              </div>
+            </div>
+
+            {/* code */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, alignItems: 'center' }}>
+              <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10,
+                textTransform: 'uppercase', letterSpacing: 2,
+                color: 'rgba(42,31,26,0.5)' }}>Voucher code</div>
+              <button onClick={revealed ? handleCopy : () => setRevealed(true)}
+                style={{
+                  background: revealed ? '#2A1F1A' : 'linear-gradient(135deg, #FFD5C8, #D4CCE8)',
+                  color: revealed ? '#FFF6F0' : '#2A1F1A',
+                  border: 'none', borderRadius: 14,
+                  padding: '12px 24px', cursor: 'pointer',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: revealed ? 18 : 14,
+                  fontWeight: 700,
+                  letterSpacing: revealed ? 3 : 1.5,
+                  textTransform: 'uppercase',
+                  boxShadow: '0 8px 20px -8px rgba(42,31,26,0.25)',
+                  transition: 'all 0.3s ease',
+                  minWidth: 200,
+                }}>
+                {copied ? '✓ Copied!' : revealed ? 'HBD-N\'MILD 🤍' : '🎁 Tap to reveal'}
+              </button>
+            </div>
+
+            {/* details */}
+            <div style={{ display: 'flex', justifyContent: 'space-between',
+              fontFamily: 'Inter, sans-serif', fontSize: 11,
+              color: 'rgba(42,31,26,0.5)', padding: '0 4px' }}>
+              <span>Valid until 31 Dec 2026</span>
+              <span>For cosmetics only 💄</span>
+            </div>
+          </div>
+        </div>
+
+        {/* bottom note */}
+        <div style={{ textAlign: 'center', marginTop: 14,
+          fontFamily: 'Inter, sans-serif', fontSize: 12,
+          color: 'rgba(42,31,26,0.5)' }}>
+          Happy Birthday N'Mild 🎂♡
+        </div>
+      </div>
+    </ScreenFrame>
+  );
+}
+
+Object.assign(window, {
+  WelcomeScreen, SetupScreen, OutfitScreen,
+  MoodScreen, LooksScreen, SaveScreen, VoucherScreen,
+});  </script>
+
+
+  <!-- ═══ app.jsx ═══ -->
+  <script type="text/babel">
+// app.jsx — state machine + iOS device frame wrapper.
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "glitter": 1,
+  "demoSeason": "spring",
+  "showFrame": true
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  // user state
+  const [step, setStep]       = React.useState('welcome');
+  // N'Mild's face is the fixed base photo for the whole flow — no upload,
+  // no face-shape framing. The filter is designed directly on top of it.
+  const NMILD_PHOTO = 'assets/nmild.png';
+  const [photo, setPhoto]     = React.useState(NMILD_PHOTO);
+  // Shared photo crop — N'Mild's face is fixed at 1.1× on every screen
+  // (no user zoom) so the makeup overlay lands consistently everywhere.
+  const [photoFrame, setPhotoFrame] = React.useState({ zoom: 1.1, panX: 0, panY: 0 });
+  // Face landmarks are now auto-detected via MediaPipe and baked
+  // as static data in face-mesh-data.jsx — no user state needed.
+  const [season, setSeason]   = React.useState(t.demoSeason || 'spring');
+  const [outfit, setOutfit]   = React.useState(null);
+  const [outfitColor, setOutfitColor] = React.useState(null);
+  const [mood, setMood]       = React.useState(null);
+  const [look, setLook]       = React.useState(null);
+
+  // Keep demoSeason tweak in sync if user manually picks one.
+  React.useEffect(() => {
+    if (t.demoSeason && season !== t.demoSeason) setSeason(t.demoSeason);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.demoSeason]);
+
+  const goto = (s) => setStep(s);
+
+  // Linear back-step map
+  const backFrom = {
+    setup:  'welcome',
+    outfit: 'setup',
+    mood:   'outfit',
+    looks:  'mood',
+    save:   'looks',
+    voucher: 'save',
+  };
+
+  const restart = () => {
+    setStep('welcome');
+    setPhoto(NMILD_PHOTO);
+    setOutfit(null); setOutfitColor(null); setMood(null); setLook(null);
+  };
+
+  let screen;
+  switch (step) {
+    case 'welcome':
+      screen = <WelcomeScreen glitter={t.glitter} onStart={() => goto('setup')} />;
+      break;
+    case 'setup':
+      screen = <SetupScreen glitter={t.glitter}
+                            photo={photo}
+                            photoFrame={photoFrame} onPhotoFrame={setPhotoFrame}
+                            season={season}
+                            onSeason={(s) => { setSeason(s); setTweak('demoSeason', s); }}
+                            onNext={() => goto('outfit')}
+                            onBack={() => goto(backFrom.setup)} />;
+      break;
+    case 'outfit':
+      screen = <OutfitScreen glitter={t.glitter} season={season}
+                             photo={photo} photoFrame={photoFrame}
+                             outfit={outfit} outfitColor={outfitColor}
+                             onOutfit={setOutfit} onOutfitColor={setOutfitColor}
+                             onNext={() => goto('mood')} onBack={() => goto(backFrom.outfit)} />;
+      break;
+    case 'mood':
+      screen = <MoodScreen glitter={t.glitter} mood={mood} onMood={setMood}
+                           onNext={() => goto('looks')} onBack={() => goto(backFrom.mood)} />;
+      break;
+    case 'looks':
+      screen = <LooksScreen glitter={t.glitter} season={season} mood={mood} outfit={outfit}
+                           photo={photo} photoFrame={photoFrame}
+                           onSave={(l) => { setLook(l); goto('save'); }}
+                           onBack={() => goto(backFrom.looks)} />;
+      break;
+    case 'save':
+      screen = <SaveScreen glitter={t.glitter} look={look} photo={photo} photoFrame={photoFrame}
+                           season={season}
+                           onVoucher={() => goto('voucher')}
+                           onBack={() => goto(backFrom.save)} />;
+      break;
+    case 'voucher':
+      screen = <VoucherScreen glitter={t.glitter}
+                              onBack={() => goto(backFrom.voucher)} />;
+      break;
+    default: screen = null;
+  }
+
+  const content = (
+    <div style={{ position: 'relative', width: '100%', height: '100%',
+                  overflow: 'hidden',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  color: '#2A1F1A' }}>
+      {screen}
+    </div>
+  );
+
+  // Scale the fixed 402×874 phone to fit any viewport so the whole device is
+  // always visible (otherwise short windows clip everything below the fold).
+  const stageRef = React.useRef(null);
+  React.useEffect(() => {
+    const fit = () => {
+      const el = stageRef.current;
+      if (!el) return;
+      const pad = 32;
+      const s = Math.min(1,
+        (window.innerWidth - pad) / 402,
+        (window.innerHeight - pad) / 874);
+      el.style.transform = `scale(${s})`;
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+
+  return (
+    <>
+      <div ref={stageRef} style={{ transformOrigin: 'center center', flex: '0 0 auto' }}>
+        {t.showFrame ? (
+          <IOSDevice width={402} height={874}>
+            {content}
+          </IOSDevice>
+        ) : (
+          <div style={{
+            width: 402, height: 874, borderRadius: 44, overflow: 'hidden',
+            boxShadow: '0 30px 80px -30px rgba(42,31,26,0.4)',
+            background: '#000',
+          }}>{content}</div>
+        )}
+      </div>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Sparkle">
+          <TweakSlider label="Glitter" value={Math.round(t.glitter * 100)}
+                       min={0} max={150} step={5} unit="%"
+                       onChange={(v) => setTweak('glitter', v / 100)} />
+        </TweakSection>
+        <TweakSection label="Demo">
+          <TweakSelect label="Personal color"
+                       value={t.demoSeason}
+                       options={[
+                         { value: 'spring', label: 'Spring · warm light' },
+                         { value: 'summer', label: 'Summer · cool soft' },
+                         { value: 'autumn', label: 'Autumn · warm deep' },
+                         { value: 'winter', label: 'Winter · cool vivid' },
+                       ]}
+                       onChange={(v) => { setTweak('demoSeason', v); setSeason(v); }} />
+          <TweakToggle label="iPhone frame" value={t.showFrame}
+                       onChange={(v) => setTweak('showFrame', v)} />
+        </TweakSection>
+        <TweakSection label="Jump to screen">
+          <TweakSelect label="Screen"
+                       value={step}
+                       options={[
+                         { value: 'welcome', label: '01 · Welcome' },
+                         { value: 'setup',   label: '02 · Face + season' },
+                         { value: 'outfit',  label: '03 · Outfit' },
+                         { value: 'mood',    label: '04 · Mood' },
+                         { value: 'looks',   label: '05 · 3 looks + preview' },
+                         { value: 'save',    label: '06 · Save' },
+                         { value: 'voucher', label: '07 · Voucher 🎁' },
+                       ]}
+                       onChange={(v) => {
+                         // Backfill state so deep-linked screens have data.
+                         if (!outfit) setOutfit('white-color');
+                         if (!mood)   setMood('happy');
+                         if (v === 'save' && !look) {
+                           const trio = window.PCD_DATA.getLooks(season, mood || 'happy', outfit || 'white-color');
+                           setLook(trio[0]);
+                         }
+                         setStep(v);
+                       }} />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+</body>
+</html>
